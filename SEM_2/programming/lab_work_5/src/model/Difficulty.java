@@ -1,4 +1,4 @@
-package MyClass;
+package model;
 
 public enum Difficulty {
     VERY_EASY,

@@ -1,7 +1,8 @@
 package command.commands;
 
 import command.Command;
-import MyClass.*;
+import manager.*;
+import model.LabWork;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -9,10 +10,10 @@ import java.util.ArrayDeque;
 
 public class LoadCommand implements Command {
 
-    public final LabWorkCollection labWorkCollection;
+    public final CollectionManager collectionManager;
     public final String fileName;
-    public LoadCommand(LabWorkCollection labWorkCollection,String fileName) {
-        this.labWorkCollection = labWorkCollection;
+    public LoadCommand(CollectionManager collectionManager, String fileName) {
+        this.collectionManager = collectionManager;
         this.fileName = fileName;
     }
 
@@ -20,7 +21,7 @@ public class LoadCommand implements Command {
     public void execute() {
             try {
                 ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName));
-                labWorkCollection.setCollection((ArrayDeque<LabWork>) inputStream.readObject());
+                collectionManager.setCollection((ArrayDeque<LabWork>) inputStream.readObject());
                 System.out.println("File loaded!");
             }catch (Exception e){
                 System.out.println("File not founded! "+e.getMessage());

@@ -1,8 +1,6 @@
-package command.commandProvider;
+package manager;
 
-import MyClass.Difficulty;
-import MyClass.LabWork;
-import MyClass.LabWorkCollection;
+import model.Difficulty;
 import command.commands.*;
 
 import java.util.Arrays;
@@ -11,12 +9,12 @@ import java.util.Scanner;
 
 import static command.commands.FillCommand.fillFields;
 
-public class CommandProvider {
-    private final LabWorkCollection labWorkCollection;
+public class CommandManager {
+    private final CollectionManager collectionManager;
     private static final Scanner scanner = new Scanner(System.in);
 
-    public CommandProvider(LabWorkCollection labWorkCollection) {
-        this.labWorkCollection = labWorkCollection;
+    public CommandManager(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
 
@@ -29,44 +27,44 @@ public class CommandProvider {
                 new HelpCommand().execute();
                 break;
             case "info":
-                new InfoCommand(labWorkCollection).execute();
+                new InfoCommand(collectionManager).execute();
                 break;
             case "show":
-                new ShowCommand(labWorkCollection).execute();
+                new ShowCommand(collectionManager).execute();
                 break;
             case "add":
-                new AddCommand(labWorkCollection,fillFields()).execute();
+                new AddCommand(collectionManager,fillFields()).execute();
                 break;
             case "update":
                 if (inputParts.length > 1) {
-                    new UpdateCommand(labWorkCollection, Long.parseLong(inputParts[1]), fillFields()).execute();
+                    new UpdateCommand(collectionManager, Long.parseLong(inputParts[1]), fillFields()).execute();
                 } else {
                     System.out.println("ID is required for the update command.");
                 }
                 break;
             case "remove_by_id":
                 if (inputParts.length > 1) {
-                    new RemoveByIdCommand(labWorkCollection, Long.parseLong(inputParts[1])).execute();
+                    new RemoveByIdCommand(collectionManager, Long.parseLong(inputParts[1])).execute();
                 } else {
                     System.out.println("ID is required for the remove_by_id command.");
                 }
                 break;
             case "clear":
-                new ClearCommand(labWorkCollection).execute();
+                new ClearCommand(collectionManager).execute();
                 break;
             case "save":
                 System.out.println("Write name for your file for saving:");
                 String fileName = scanner.nextLine();
-                new SaveCommand(labWorkCollection, fileName + ".csv").execute();
+                new SaveCommand(collectionManager, fileName + ".csv").execute();
                 break;
             case "load":
                 System.out.println("Write name for your file for loading:");
                 String loadFileName = scanner.nextLine();
-                new LoadCommand(labWorkCollection, loadFileName + ".csv").execute();
+                new LoadCommand(collectionManager, loadFileName + ".csv").execute();
                 break;
             case "execute_script":
                 if (inputParts.length > 1) {
-                    new ExecuteScriptCommand(inputParts[1]).execute();
+                    new ExecuteScriptCommand(inputParts[1], collectionManager).execute();
                 } else {
                     System.out.println("File name is required for the execute_script command.");
                 }
@@ -75,16 +73,16 @@ public class CommandProvider {
                 new ExitCommand().execute();
                 break;
             case "add_if_max":
-                new AddIfMaxCommand(labWorkCollection, fillFields()).execute();
+                new AddIfMaxCommand(collectionManager, fillFields()).execute();
                 break;
             case "remove_greater":
-                new RemoveGreaterCommand(labWorkCollection, fillFields()).execute();
+                new RemoveGreaterCommand(collectionManager, fillFields()).execute();
                 break;
             case "remove_lower":
-                new RemoveLowerCommand(labWorkCollection, fillFields()).execute();
+                new RemoveLowerCommand(collectionManager, fillFields()).execute();
                 break;
             case "min_by_maximum_point":
-                new MinByMaximumPointCommand(labWorkCollection).execute();
+                new MinByMaximumPointCommand(collectionManager).execute();
                 break;
             case "filter_greater_than_difficulty":
                 System.out.println("Choose difficulty from: ");
@@ -103,7 +101,7 @@ public class CommandProvider {
                             }
                         }
                         if (difficulty != null) {
-                            new FilterGreaterThanDifficultyCommand(labWorkCollection, difficulty).execute();
+                            new FilterGreaterThanDifficultyCommand(collectionManager, difficulty).execute();
                             break;
                         } else {
                             throw new IllegalArgumentException("difficulty chose wrongly");
@@ -114,7 +112,7 @@ public class CommandProvider {
                 }
                 break;
             case "print_unique_discipline":
-                new PrintUniqueDisciplineCommand(labWorkCollection).execute();
+                new PrintUniqueDisciplineCommand(collectionManager).execute();
                 break;
             default:
                 System.out.println("Unknown command. Type 'help' for a list of available commands.");

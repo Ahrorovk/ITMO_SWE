@@ -1,22 +1,24 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.Discipline;
+import model.LabWork;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class PrintUniqueDisciplineCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
 
-    public PrintUniqueDisciplineCommand(LabWorkCollection labWorkCollection) {
-        this.labWorkCollection = labWorkCollection;
+    public PrintUniqueDisciplineCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
     @Override
     public void execute() {
         Set<Discipline> uniqueDisciplines = new HashSet<>();
-        for (LabWork labWork : labWorkCollection.getCollection()) {
+        for (LabWork labWork : collectionManager.getCollection()) {
             uniqueDisciplines.add(labWork.getDiscipline());
         }
         if (uniqueDisciplines.isEmpty()) {

@@ -1,18 +1,18 @@
 package command.commands;
 
 import command.Command;
-import MyClass.LabWorkCollection;
+import manager.CollectionManager;
 
 public class ClearCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
 
-    public ClearCommand(LabWorkCollection labWorkCollection) {
-        this.labWorkCollection = labWorkCollection;
+    public ClearCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
     @Override
     public void execute() {
-        labWorkCollection.getCollection().clear();
+        collectionManager.getCollection().clear();
     }
 }
 

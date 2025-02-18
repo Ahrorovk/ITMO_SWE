@@ -1,20 +1,20 @@
 package command.commands;
 
-import MyClass.LabWorkCollection;
+import manager.CollectionManager;
 import command.Command;
 
 public class RemoveByIdCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
     private final Long id;
 
-    public RemoveByIdCommand(LabWorkCollection labWorkCollection, Long id) {
-        this.labWorkCollection = labWorkCollection;
+    public RemoveByIdCommand(CollectionManager collectionManager, Long id) {
+        this.collectionManager = collectionManager;
         this.id = id;
     }
 
     @Override
     public void execute() {
-        labWorkCollection.getCollection().removeIf(labWork -> labWork.getId().equals(id));
+        collectionManager.getCollection().removeIf(labWork -> labWork.getId().equals(id));
     }
 }
 

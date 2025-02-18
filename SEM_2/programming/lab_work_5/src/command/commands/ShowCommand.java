@@ -1,18 +1,19 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.LabWork;
 
 public class ShowCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
 
-    public ShowCommand(LabWorkCollection labWorkCollection) {
-        this.labWorkCollection = labWorkCollection;
+    public ShowCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
     @Override
     public void execute() {
-        for (LabWork labWork : labWorkCollection.getCollection()) {
+        for (LabWork labWork : collectionManager.getCollection()) {
             System.out.println(labWork);
         }
     }

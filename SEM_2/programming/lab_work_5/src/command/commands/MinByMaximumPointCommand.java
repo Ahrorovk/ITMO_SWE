@@ -1,20 +1,21 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.LabWork;
 
 import java.util.Comparator;
 
 public class MinByMaximumPointCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
 
-    public MinByMaximumPointCommand(LabWorkCollection labWorkCollection) {
-        this.labWorkCollection = labWorkCollection;
+    public MinByMaximumPointCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
     @Override
     public void execute() {
-        labWorkCollection.getCollection().stream()
+        collectionManager.getCollection().stream()
                 .min(Comparator.comparingInt(LabWork::getMaximumPoint))
                 .ifPresent(labWork -> System.out.println("An object with a minimum maximum score: " + labWork));
     }

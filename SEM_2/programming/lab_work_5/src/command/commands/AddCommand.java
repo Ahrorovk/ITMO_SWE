@@ -1,21 +1,22 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.LabWork;
+
 import java.util.Scanner;
 
 public class AddCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
-    private static final Scanner scanner = new Scanner(System.in);
+    private final CollectionManager collectionManager;
     private final LabWork labWork;
-    public AddCommand(LabWorkCollection labWorkCollection, LabWork labWork) {
-        this.labWorkCollection = labWorkCollection;
+    public AddCommand(CollectionManager collectionManager, LabWork labWork) {
+        this.collectionManager = collectionManager;
         this.labWork = labWork;
     }
 
     @Override
     public void execute() {
-        labWorkCollection.addLabWork(labWork.getName(), labWork.getCoordinates(), labWork.getMinimalPoint(),
+        collectionManager.addLabWork(labWork.getName(), labWork.getCoordinates(), labWork.getMinimalPoint(),
                 labWork.getMaximumPoint(), labWork.getPersonalQualitiesMaximum(), labWork.getDifficulty(),
                 labWork.getDiscipline());
 

@@ -1,8 +1,8 @@
 package command.commands;
 
-import MyClass.LabWorkCollection;
+import manager.CollectionManager;
 import command.Command;
-import command.commandProvider.CommandProvider;
+import manager.CommandManager;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,9 +10,11 @@ import java.io.IOException;
 
 public class ExecuteScriptCommand implements Command {
     private final String fileName;
+    private final CollectionManager collectionManager;
 
-    public ExecuteScriptCommand(String fileName) {
+    public ExecuteScriptCommand(String fileName, CollectionManager collectionManager) {
         this.fileName = fileName;
+        this.collectionManager = collectionManager;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class ExecuteScriptCommand implements Command {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            CommandProvider commandManager = new CommandProvider(new LabWorkCollection());
+            CommandManager commandManager = new CommandManager(collectionManager);
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();

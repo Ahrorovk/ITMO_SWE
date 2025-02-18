@@ -1,20 +1,21 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.LabWork;
 
 public class RemoveGreaterCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
     private final LabWork element;
 
-    public RemoveGreaterCommand(LabWorkCollection labWorkCollection, LabWork element) {
-        this.labWorkCollection = labWorkCollection;
+    public RemoveGreaterCommand(CollectionManager collectionManager, LabWork element) {
+        this.collectionManager = collectionManager;
         this.element = element;
     }
 
     @Override
     public void execute() {
-        labWorkCollection.getCollection().removeIf(labWork -> labWork.getMaximumPoint() > element.getMaximumPoint());
+        collectionManager.getCollection().removeIf(labWork -> labWork.getMaximumPoint() > element.getMaximumPoint());
     }
 }
 

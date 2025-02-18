@@ -1,16 +1,16 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 public class SaveCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
     private final String fileName;
-    public SaveCommand(LabWorkCollection labWorkCollection,String fileName) {
-        this.labWorkCollection = labWorkCollection;
+    public SaveCommand(CollectionManager collectionManager, String fileName) {
+        this.collectionManager = collectionManager;
         this.fileName = fileName;
     }
 
@@ -18,7 +18,7 @@ public class SaveCommand implements Command {
     public void execute() {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName));
-            outputStream.writeObject(labWorkCollection.getCollection());
+            outputStream.writeObject(collectionManager.getCollection());
             System.out.println("The collection is saved to a file");
         }catch (Exception e){
             System.out.println(e.getMessage());

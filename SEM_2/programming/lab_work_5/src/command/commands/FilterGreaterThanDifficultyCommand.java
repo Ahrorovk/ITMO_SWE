@@ -1,22 +1,23 @@
 package command.commands;
 
-import MyClass.*;
+import manager.*;
 import command.Command;
+import model.Difficulty;
 
 
 public class FilterGreaterThanDifficultyCommand implements Command {
-    private final LabWorkCollection labWorkCollection;
+    private final CollectionManager collectionManager;
     private final Difficulty difficulty;
 
-    public FilterGreaterThanDifficultyCommand(LabWorkCollection labWorkCollection, Difficulty difficulty) {
-        this.labWorkCollection = labWorkCollection;
+    public FilterGreaterThanDifficultyCommand(CollectionManager collectionManager, Difficulty difficulty) {
+        this.collectionManager = collectionManager;
         this.difficulty = difficulty;
     }
 
     @Override
     public void execute() {
         try {
-            labWorkCollection.getCollection().stream()
+            collectionManager.getCollection().stream()
                     .filter(labWork -> labWork.getDifficulty().compareTo(difficulty) > 0)
                     .forEach(System.out::println);
         } catch (IllegalArgumentException e) {

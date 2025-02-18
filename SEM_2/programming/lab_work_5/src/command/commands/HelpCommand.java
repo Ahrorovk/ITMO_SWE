@@ -5,8 +5,8 @@ import command.Command;
 public class HelpCommand implements Command {
     @Override
     public void execute() {
-        System.out.println("Available commands:");
-        System.out.println("help - Show available commands");
+        System.out.println("Available commands.csv:");
+        System.out.println("help - Show available commands.csv");
         System.out.println("info - Show collection information");
         System.out.println("show - Show all items in the collection");
         System.out.println("add {element} - Add new element to the collection");
