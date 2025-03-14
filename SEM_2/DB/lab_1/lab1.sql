@@ -124,3 +124,10 @@ VALUES (1, 1);
 
 INSERT INTO spit_events (dilofosaur_id, worker_id, description)
 VALUES (1, 1, 'Плевок ослепляющей слюной');
+UPDATE tasks SET duration = INTERVAL '25 minutes' WHERE task_id = 1;
+UPDATE workers SET side = 'восточная' WHERE worker_id = 2;
+UPDATE metal_fastenings SET status = 'установлено' WHERE fastening_id = 3;
+DELETE FROM greenkeepers WHERE greenkeeper_id = 3;
+SELECT * FROM observers;
+SELECT * FROM dilofosavrs WHERE spit_saliva=true;
+SELECT * FROM greenkeepers WHERE name ='Иван Иванов';
