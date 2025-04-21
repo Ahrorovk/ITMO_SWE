@@ -47,17 +47,39 @@ WHERE EXTRACT(YEAR FROM s.НАЧАЛО) = 2011
 GROUP BY g.ГРУППА
 HAVING COUNT(s.	ЧЛВК_ИД) > 5;
 
---5 
+--5
+
+WITH max_age_1100 AS (
+  SELECT MAX(date_part('year', age(CURRENT_DATE, l2.ДАТА_РОЖДЕНИЯ))) AS max_age
+  FROM Н_УЧЕНИКИ s2
+  JOIN Н_ЛЮДИ l2 ON s2.ЧЛВК_ИД = l2.ИД
+  WHERE s2.ГРУППА = '1100'
+)
+SELECT
+  s.ГРУППА AS "Группа",
+  AVG(date_part('year', age(CURRENT_DATE, l.ДАТА_РОЖДЕНИЯ))) AS "Средний возраст"
+FROM Н_УЧЕНИКИ s
+JOIN Н_ЛЮДИ   l ON s.ЧЛВК_ИД = l.ИД
+GROUP BY s.ГРУППА
+HAVING 
+  AVG(date_part('year', age(CURRENT_DATE, l.ДАТА_РОЖДЕНИЯ)))
+  < (SELECT max_age FROM max_age_1100);
+
 SELECT 
   s.ГРУППА AS "Группа",
   AVG(date_part('year', age(CURRENT_DATE, l.ДАТА_РОЖДЕНИЯ))) AS "Средний возраст"
 FROM Н_УЧЕНИКИ s
 JOIN Н_ЛЮДИ l ON s.ЧЛВК_ИД = l.ИД
 GROUP BY s.ГРУППА
-HAVING AVG(date_part('year', age(CURRENT_DATE, l.ДАТА_РОЖДЕНИЯ)))
-       < (SELECT max_age FROM max_age_1100);
+HAVING AVG(date_part('year', age(CURRENT_DATE, l.ДАТА_РОЖДЕНИЯ))) < (
+    SELECT MAX(date_part('year', age(CURRENT_DATE, l2.ДАТА_РОЖДЕНИЯ)))
+    FROM Н_УЧЕНИКИ s2
+    JOIN Н_ЛЮДИ l2 ON s2.ЧЛВК_ИД = l2.ИД
+    WHERE s2.ГРУППА = '1100'
+);
 
 -- 6
+
 SELECT 
     g.ГРУППА,
     l.ИД AS НОМЕР_СТУДЕНТА,
@@ -71,7 +93,7 @@ JOIN Н_ГРУППЫ_ПЛАНОВ g ON g.ГРУППА = u.ГРУППА
 JOIN Н_ВЕДОМОСТИ v ON v.НОМЕР_ДОКУМЕНТА = u.В_СВЯЗИ_С::varchar
 JOIN Н_ФОРМЫ_ОБУЧЕНИЯ fo ON fo.ИД = u.ВИД_ОБУЧ_ИД
 WHERE u.ПРИЗНАК = 'отчисл'
-  AND u.КОНЕЦ_ПО_ПРИКАЗУ >= DATE '2012-09-01'
+  AND u.КОНЕЦ_ПО_ПРИКАЗУ > DATE '2012-09-01'
   AND fo.НАИМЕНОВАНИЕ = 'Очная';
  
 
