@@ -1,0 +1,6 @@
+remove 2
+swap 2 1
+add 2
++
+add 1
++
