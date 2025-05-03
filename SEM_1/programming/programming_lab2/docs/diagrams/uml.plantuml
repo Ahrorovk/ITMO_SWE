@@ -1,0 +1,75 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class ViseGrip
+class Absord
+class Confusion
+class Discharge
+class IceBeam
+class NaturesMadness
+class Thunder
+class Confide
+class DoubleTeam
+class Swagger
+class SwordsDance
+class ThunderWave
+
+class Move
+class PhysicalMove
+class CustomPhysicalMove
+class SpecialMove
+class CustomSpecialMove
+class StatusMove
+class CustomStatusMove
+
+
+
+class Pokemon
+class Charjabug
+class Grubbin
+class Kabuto
+class Kabutops
+class TapuBulu
+class Vikavolt
+
+class Helper
+
+class Main
+
+ViseGrip        -[#000082,plain]-^  CustomPhysicalMove
+
+Absord     -[#000082,plain]-^  CustomSpecialMove
+Confusion    -[#000082,plain]-^  CustomSpecialMove
+Discharge     -[#000082,plain]-^  CustomSpecialMove
+IceBeam    -[#000082,plain]-^  CustomSpecialMove
+NaturesMadness   -[#000082,plain]-^  CustomSpecialMove
+Thunder   -[#000082,plain]-^  CustomSpecialMove
+
+Confide       -[#000082,plain]-^  CustomStatusMove
+DoubleTeam    -[#000082,plain]-^  CustomStatusMove
+Swagger      -[#000082,plain]-^  CustomStatusMove
+SwordsDance      -[#000082,plain]-^  CustomStatusMove
+ThunderWave      -[#000082,plain]-^  CustomStatusMove
+
+StatusMove    -[#000082,plain]-^  Move
+DamageMove    -[#000082,plain]-^  Move
+PhysicalMove  -[#000082,plain]-^  DamageMove
+SpecialMove   -[#000082,plain]-^  DamageMove
+
+CustomStatusMove    -[#000082,plain]-^  StatusMove
+CustomPhysicalMove  -[#000082,plain]-^  PhysicalMove
+CustomSpecialMove   -[#000082,plain]-^  SpecialMove
+
+
+Kabuto         -[#000082,plain]-^  Pokemon
+Kabutops       -[#000082,plain]-^  Kabuto
+
+TapuBulu      -[#000082,plain]-^  Pokemon
+
+Grubbin        -[#000082,plain]-^  Pokemon
+Charjabug     -[#000082,plain]-^  Grubbin
+Vikavolt      -[#000082,plain]-^  Charjabug
+
+@enduml

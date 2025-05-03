@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="programming_lab2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/programming_lab2_jar</output-path>
+    <root id="archive" name="programming_lab2.jar">
+      <element id="module-output" name="programming_lab2.main" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/pack/Pokemon.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.23/dbaadea1f5e68f790d242a91a38355a83ec38747/kotlin-stdlib-1.9.23.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.9.23" />
+      <element id="file-copy" path="$PROJECT_DIR$/pack/Pokemon.jar" />
+    </root>
+  </artifact>
+</component>
