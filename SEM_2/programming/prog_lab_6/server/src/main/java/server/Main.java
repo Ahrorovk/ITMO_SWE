@@ -1,8 +1,5 @@
 package server;
 
-import common.model.Coordinates;
-import common.model.Difficulty;
-import common.model.Discipline;
 import common.model.LabWork;
 import server.commands.*;
 import server.managers.CollectionManager;
@@ -47,6 +44,7 @@ public class Main {
       register("min_by_maximum_point", new MinByMaximumPointCommand(collectionManager));
       register("print_unique_discipline", new PrintUniqueDiscipline(collectionManager));
       register("remove_greater", new RemoveGreater(collectionManager));
+      register("filter_greater_difficulty", new FilterGreaterThanDifficulty(collectionManager));
       register("remove_lower", new RemoveLower(collectionManager));
       register("remove_by_id", new RemoveById(collectionManager));
       register("add_if_max", new AddIfMax(collectionManager));

@@ -1,2 +1,9 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()   // ← чтобы найти shadow‑plugin
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'lab6'
 include 'common', 'server', 'client'

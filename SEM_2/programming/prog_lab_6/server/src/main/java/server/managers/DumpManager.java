@@ -33,40 +33,37 @@ public class DumpManager {
     }
   }
 
-  public void writeCollection(Collection<LabWork> collection, Collection<LabWork> collectionDie, ArrayDeque<String> logStack) {
-    OutputStreamWriter writer = null, writer2 = null, writer3 = null;
-    try {
-      var csv = collection2CSV(collection);
-      if (csv == null) return;
-      writer = new OutputStreamWriter(new FileOutputStream(fileName));
-      var csv2 = collection2CSV(collectionDie);
-      if (csv2 == null) return;
-      writer2 = new OutputStreamWriter(new FileOutputStream(fileName + "_die.txt"));
-      writer3 = new OutputStreamWriter(new FileOutputStream(fileName + "_log.txt"));
-      try {
-        writer.write(csv);
-        writer.flush();
-        writer2.write(csv2);
-        writer2.flush();
-        for (var line : logStack)
-          writer3.write(line + "\r\n");
-        writer3.flush();
-        console.println("Collection successfully loaded!");
-      } catch (IOException e) {
-        console.printError("Unexpected saving error");
-      }
-    } catch (FileNotFoundException | NullPointerException e) {
-      console.printError("File not found");
-    } finally {
-      try {
-        writer.close();
-        writer2.close();
-        writer3.close();
-      } catch (IOException e) {
-        console.printError("Exit file error");
-      }
+  public void writeCollection(Collection<LabWork> live,
+                              Collection<LabWork> died,
+                              Deque<String> logStack) {
+
+    /* сериализация до открытия файлов */
+    String csv  = collection2CSV(live);
+    String csv2 = collection2CSV(died);
+
+    if (csv == null || csv2 == null) {
+      console.printError("Serialization failed; nothing written");
+      return;
     }
+
+    try (OutputStreamWriter w1 = new OutputStreamWriter(new FileOutputStream(fileName));
+         OutputStreamWriter w2 = new OutputStreamWriter(new FileOutputStream(fileName + "_die.txt"));
+         OutputStreamWriter w3 = new OutputStreamWriter(new FileOutputStream(fileName + "_log.txt"))) {
+
+      w1.write(csv);
+      w2.write(csv2);
+      for (String line : logStack) w3.write(line + System.lineSeparator());
+
+      console.println("Collection successfully saved!");
+
+    } catch (FileNotFoundException e) {
+      console.printError("No permission or wrong path: " + e.getMessage());
+    } catch (IOException e) {
+      console.printError("Unexpected saving error: " + e.getMessage());
+    }
+
   }
+
 
   private LinkedList<LabWork> CSV2collection(String s) {
     try {

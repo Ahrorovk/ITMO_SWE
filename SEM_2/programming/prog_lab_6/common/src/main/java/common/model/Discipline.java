@@ -52,7 +52,7 @@ public class Discipline implements Serializable {
 
   @Override
   public String toString() {
-    return "Discipline{" +
+    return "\nDiscipline{" +
       "name='" + name + '\'' +
       ", practiceHours=" + practiceHours +
       '}';

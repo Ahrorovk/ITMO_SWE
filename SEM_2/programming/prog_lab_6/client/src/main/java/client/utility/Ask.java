@@ -32,7 +32,7 @@ public class Ask {
         var line = console.readln().trim();
         if (line.equals("exit")) throw new AskBreak();
         if (line.equals("")) {
-          maximumPoint = null;
+          maximumPoint = 0;
           break;
         }
         try {
@@ -50,7 +50,7 @@ public class Ask {
         var line = console.readln().trim();
         if (line.equals("exit")) throw new AskBreak();
         if (line.equals("")) {
-          minimumPoint = null;
+          minimumPoint = 0;
           break;
         }
         try {
@@ -67,7 +67,7 @@ public class Ask {
         var line = console.readln().trim();
         if (line.equals("exit")) throw new AskBreak();
         if (line.equals("")) {
-          personalQualitiesMaximum = null;
+          personalQualitiesMaximum = 0;
           break;
         }
         try {
@@ -151,38 +151,41 @@ public class Ask {
 
   public static Discipline askDiscipline(Console console) throws AskBreak {
     try {
-      console.print("Discipline: ");
-      Discipline r = new Discipline("_", 0);
+      /* 1️⃣  Имя дисциплины */
+      console.println("Discipline: ");
+      String name;
       while (true) {
-        var line = console.readln().trim();
-        if (line.equals("exit")) throw new AskBreak();
-        if (!line.equals("")) {
-          try {
-            r.setName(line);
-            break;
-          } catch (NullPointerException | IllegalArgumentException e) {
-          }
+        console.print("Discipline name: ");
+        String line = console.readln().trim();
+
+        if (line.equalsIgnoreCase("exit"))   throw new AskBreak();
+        if (!line.isEmpty()) {
+          name = line;
+          break;
         }
-        console.print("Name: ");
+        console.println("Name cannot be empty. Try again (or 'exit').");
       }
-      console.print("Practice hours: ");
+
+      /* 2️⃣  Часы практики */
+      int practiceHours;
       while (true) {
-        var line = console.readln().trim();
-        if (line.equals("exit")) throw new AskBreak();
-        if (!line.equals("") && Integer.parseInt(line) > 0) {
-          try {
-            r.setPracticeHours(Integer.parseInt(line));
-            break;
-          } catch (NullPointerException | IllegalArgumentException e) {
-            console.println(e.getMessage());
-          }
-        }
-        console.print("Practice hours: ");
+        console.print("Practice hours (> 0): ");
+        String line = console.readln().trim();
+
+        if (line.equalsIgnoreCase("exit"))   throw new AskBreak();
+        try {
+          practiceHours = Integer.parseInt(line);
+          if (practiceHours > 0) break;    // валидно
+        } catch (NumberFormatException ignored) { }
+        console.println("Enter a positive integer (or 'exit').");
       }
-      return r;
+
+      return new Discipline(name, practiceHours);
+
     } catch (NoSuchElementException | IllegalStateException e) {
       console.printError("Reading Discipline from console failed");
       return null;
     }
   }
+
 }

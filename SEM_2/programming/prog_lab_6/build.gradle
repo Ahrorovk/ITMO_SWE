@@ -1,75 +1,86 @@
+/* ------------------------------------------
+ *  Shadow‑plugin доступен всем подпроектам
+ * ------------------------------------------ */
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+}
+
+/* ------------------------------------------
+ *  Общие настройки
+ * ------------------------------------------ */
 subprojects {
     apply plugin: 'java'
-    sourceCompatibility = 17 // Укажите вашу целевую версию
-    targetCompatibility = 17
-    repositories {
-        mavenCentral()
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    repositories { mavenCentral() }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+/* ==========================================
+ *  =====     Модуль :server            =====
+ * ========================================== */
 project(':server') {
+
     apply plugin: 'application'
-    mainClassName = 'server.Main'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    mainClassName = 'server.Main'                 // Gradle 7 стиль
+
     dependencies {
         implementation project(':common')
+
         implementation 'com.google.code.gson:gson:2.10.1'
         implementation 'com.google.guava:guava:31.1-jre'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
+
         implementation 'com.opencsv:opencsv:5.10'
-        implementation 'org.slf4j:slf4j-api:2.0.17'     // façade
+
+        implementation 'org.slf4j:slf4j-api:2.0.17'
         runtimeOnly    'org.slf4j:slf4j-simple:2.0.17'
+
         implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
         implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     }
 
-    jar {
-        manifest.attributes(
-            'Main-Class': 'server.Main',
-            'Implementation-Title': 'Gradle'
-        )
+    shadowJar {
+        archiveClassifier.set('all')              // server-all.jar
+        manifest { attributes 'Main-Class': 'server.Main' }
     }
+
+    tasks.build.dependsOn tasks.shadowJar
 }
 
+/* ==========================================
+ *  =====     Модуль :client            =====
+ * ========================================== */
 project(':client') {
+
     apply plugin: 'application'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
     mainClassName = 'client.Main'
+
     dependencies {
         implementation project(':common')
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'com.google.guava:guava:31.1-jre'
-
         implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
         implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     }
-    run {
-        standardInput = System.in
+
+    tasks.named('run') { standardInput = System.in }
+
+    shadowJar {
+        archiveClassifier.set('all')              // client-all.jar
+        manifest { attributes 'Main-Class': 'client.Main' }
     }
-    jar {
-        manifest.attributes(
-            'Main-Class': 'client.Main',
-            'Implementation-Title': 'Gradle'
-        )
-    }
-}
 
-allprojects {
-    tasks.register('fatJar', Jar) {
-        archiveClassifier = 'fat'
-
-        from sourceSets.main.output
-        dependsOn configurations.runtimeClasspath
-
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-        manifest {
-            attributes['Main-Class'] = application.mainClass
-        }
-
-        from {
-            configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
-        }
-    }
+    tasks.build.dependsOn tasks.shadowJar
 }
