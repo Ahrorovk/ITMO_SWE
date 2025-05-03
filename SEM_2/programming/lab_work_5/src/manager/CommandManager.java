@@ -76,7 +76,7 @@ public class CommandManager {
                 new AddIfMaxCommand(collectionManager, fillFields()).execute();
                 break;
             case "remove_greater":
-                new RemoveGreaterCommand(collectionManager, fillFields()).execute();
+                new RemoveGreaterCommand(collectionManager, fillFxields()).execute();
                 break;
             case "remove_lower":
                 new RemoveLowerCommand(collectionManager, fillFields()).execute();
