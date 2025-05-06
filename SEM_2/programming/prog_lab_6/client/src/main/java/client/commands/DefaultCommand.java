@@ -112,7 +112,7 @@ public class DefaultCommand extends Command {
 
   public static Object askDifficulty(Console cons) {
     try {
-      cons.println("* Discipline:");
+      cons.println("* Difficulty:");
       Difficulty d = Ask.askDifficulty(cons);
       System.out.println("Difficulty -> " + d.toString());
 

@@ -107,7 +107,7 @@ public class CollectionManager {
   }
 
   public int undo(int count) {
-    var tmpLog = new LinkedList<String>();
+    LinkedList<String> tmpLog = new LinkedList<String>();
     try {
       for (var i = 0; i < count; i++) {
         if (logStack.size() == 0) return i;

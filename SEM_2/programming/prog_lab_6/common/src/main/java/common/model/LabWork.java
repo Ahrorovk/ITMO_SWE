@@ -117,68 +117,74 @@ public class LabWork extends Element implements Serializable, Validatable {
 
   public static String[] toArray(LabWork e) {
     var list = new ArrayList<String>();
-    list.add(e.getId() == null ? "null" : e.getId().toString());
+    list.add(e.getId() == null          ? "null" : e.getId().toString());
     list.add(e.getName());
     list.add(e.getCoordinates() == null ? "null" : e.getCoordinates().toString());
     list.add(e.getCreationDate().format(DateTimeFormatter.ISO_DATE));
     list.add(e.getMaximumPoint() == null ? "null" : e.getMaximumPoint().toString());
     list.add(e.getMinimalPoint() == null ? "null" : e.getMinimalPoint().toString());
-    list.add(e.getDifficulty().toString());
+    list.add(e.getDifficulty() == null   ? "null" : e.getDifficulty().name());
     list.add(String.valueOf(e.getPersonalQualitiesMaximum()));
-    list.add(e.getDiscipline() == null ? "null" : e.getDiscipline().toString());
+    // Now output Discipline as two flat columns:
+    if (e.getDiscipline() != null) {
+      list.add(e.getDiscipline().getName());
+      list.add(String.valueOf(e.getDiscipline().getPracticeHours()));
+    } else {
+      list.add("null");
+      list.add("null");
+    }
     return list.toArray(new String[0]);
   }
 
-
   public static LabWork fromArray(String[] a) {
-    Long id;
-    String name;
-    Coordinates coordinates;
-    LocalDate creationDate;
-    Integer maximumPoint;
-    Double minimalPoint;
-    Integer personalQualitiesMaximum;
-    Difficulty difficulty;
-    Discipline discipline;
     try {
-      try {
-        id = Long.parseLong(a[0]);
-      } catch (NumberFormatException e) {
-        id = null;
+      Long   id   = parseLongOrNull(a[0]);
+      String name = a[1];
+      Coordinates coords = new Coordinates(a[2]);
+      LocalDate creationDate = parseDateOrNull(a[3]);
+      Integer maxP = parseIntOrNull(a[4]);
+      Double  minP = parseDoubleOrNull(a[5]);
+      Difficulty difficulty = parseEnumOrNull(Difficulty.class, a[6]);
+      Integer pqm = parseIntOrNull(a[7]);
+
+      // Now read two more fields for Discipline:
+      String  discName = (a.length > 8) ? a[8] : null;
+      Integer discHours= (a.length > 9) ? parseIntOrNull(a[9]) : null;
+
+      Discipline discipline = null;
+      if (discName != null && !discName.equals("null")) {
+        discipline = new Discipline(discName,
+          (discHours != null) ? discHours : 0);
       }
-      name = a[1];
-      coordinates = new Coordinates(a[2]);
-      try {
-        creationDate = LocalDate.parse(a[3], DateTimeFormatter.ISO_DATE);
-      } catch (DateTimeParseException e) {
-        creationDate = null;
-      }
-      try {
-        maximumPoint = (a[4].equals("null") ? null : Integer.parseInt(a[4]));
-      } catch (NumberFormatException e) {
-        maximumPoint = null;
-      }
-      try {
-        minimalPoint = (a[5].equals("null") ? null : Double.parseDouble(a[5]));
-      } catch (NullPointerException | IllegalArgumentException e) {
-        minimalPoint = null;
-      }
-      try {
-        difficulty = (a[6].equals("null") ? null : Difficulty.valueOf(a[6]));
-        ;
-      } catch (NullPointerException | IllegalArgumentException e) {
-        difficulty = null;
-      }
-      try {
-        personalQualitiesMaximum = (a[7].equals("null") ? null : Integer.parseInt(a[7]));
-      } catch (NullPointerException | IllegalArgumentException e) {
-        personalQualitiesMaximum = null;
-      }
-      discipline = (a[8].equals("null") ? null : new Discipline(a[8]));
-      return new LabWork(id, name, coordinates, minimalPoint, maximumPoint, personalQualitiesMaximum, difficulty, discipline, creationDate);
-    } catch (ArrayIndexOutOfBoundsException e) {
+
+      return new LabWork(
+        id, name, coords,
+        minP, maxP, pqm,
+        difficulty, discipline,
+        creationDate
+      );
+    } catch (Exception e) {
+      // malformed row
+      return null;
     }
-    return null;
+  }
+
+  // helpers:
+  private static Long parseLongOrNull(String s) {
+    try { return Long.parseLong(s); } catch (Exception e) { return null; }
+  }
+  private static Integer parseIntOrNull(String s) {
+    try { return Integer.parseInt(s); } catch (Exception e) { return null; }
+  }
+  private static Double parseDoubleOrNull(String s) {
+    try { return Double.parseDouble(s); } catch (Exception e) { return null; }
+  }
+  private static LocalDate parseDateOrNull(String s) {
+    try { return LocalDate.parse(s, DateTimeFormatter.ISO_DATE); }
+    catch (Exception e) { return null; }
+  }
+  private static <E extends Enum<E>> E parseEnumOrNull(Class<E> clazz, String s) {
+    try { return Enum.valueOf(clazz, s); } catch (Exception e) { return null; }
   }
 
   @Override

@@ -1,72 +1,58 @@
 package client.managers;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 
 public class ClientSendingManager {
-	private final int PACKET_SIZE = 1024;
-	private final int DATA_SIZE = PACKET_SIZE - 1;
-	private final TCPClient tcpClient;
+  private static final int PACKET_SIZE = 1024;
+  private static final int DATA_SIZE = PACKET_SIZE - 1;
 
-	public ClientSendingManager(TCPClient tcpClient) {
-		this.tcpClient = tcpClient;
-	}
+  private final TCPClient tcpClient;
 
-	public void send(byte[] data)  {
-		var t=10;
-		for(;;) {
-			try {
-				while (tcpClient.getSocketChannel().isConnectionPending()){
-					tcpClient.getSocketChannel().finishConnect();
-				}
-				while (!tcpClient.isConnected()){
-					System.out.print("not connected, waiting..");
-					Thread.sleep(4000);
-				}
+  public ClientSendingManager(TCPClient tcpClient) {
+    this.tcpClient = tcpClient;
+  }
 
-				byte[][] ret = new byte[(int) Math.ceil(data.length / (double) DATA_SIZE)][DATA_SIZE];
+  public void send(byte[] data) throws InterruptedException, IOException {
+    byte[][] chunks = new byte[(data.length + DATA_SIZE - 1) / DATA_SIZE][];
+    for (int i = 0, off = 0; i < chunks.length; i++, off += DATA_SIZE) {
+      int len = Math.min(DATA_SIZE, data.length - off);
+      chunks[i] = Arrays.copyOfRange(data, off, off + len);
+    }
 
-				int start = 0;
-				for (int i = 0; i < ret.length; i++) {
-					ret[i] = Arrays.copyOfRange(data, start, start + DATA_SIZE);
-					start += DATA_SIZE;
-				}
+    while (true) {
+      try {
+        SocketChannel channel = tcpClient.getSocketChannel();
+        if (channel == null || !channel.isOpen() || !tcpClient.isConnected()) {
+          tcpClient.reconnect();
+          continue;
+        }
+        if (channel.isConnectionPending()) {
+          channel.finishConnect();
+        }
 
-				System.out.print("Sending " + ret.length + " queries...");
+        // 2c) Send each chunk with end-of-message flag
+        System.out.print("Sending " + chunks.length + " chunks…");
+        for (int i = 0; i < chunks.length; i++) {
+          byte[] chunk = chunks[i];
+          ByteBuffer buf = ByteBuffer.allocate(chunk.length + 1);
+          buf.put(chunk);
+          buf.put(i == chunks.length - 1 ? (byte) 1 : (byte) 0);
+          buf.flip();
+          while (buf.hasRemaining()) {
+            channel.write(buf);
+          }
+        }
+        System.out.println(" done.");
+        return;
 
-				for (int i = 0; i < ret.length; i++) {
-					var chunk = ret[i];
-					try (var outputStream = new ByteArrayOutputStream()) {
-						outputStream.write(chunk);
-						if (i == ret.length - 1) {
-							outputStream.write(new byte[]{1});
-							tcpClient.getSocketChannel().write(ByteBuffer.wrap(outputStream.toByteArray()));
-							System.out.print("Last query is " + chunk.length + " sent to server.");
-						} else {
-							outputStream.write(new byte[]{0});
-							tcpClient.getSocketChannel().write(ByteBuffer.wrap(outputStream.toByteArray()));
-							System.out.print("Query is " + chunk.length + " and sent to server.");
-						}
-					}
-				}
-				return;
-			}
-			catch (IOException e) {
-				if(!e.getMessage().equals("Connection refused: no further information"))
-					System.out.println(e);
-				if (t--<0) {
-					t=10;
-					tcpClient.newIP();
-				}
-				try{
-					Thread.sleep(200);
-					tcpClient.getSocketChannel().close();
-					tcpClient.start();
-				} catch (Exception e1){}
-			} catch (Exception e1){ break; }
-		}
-	}
+      } catch (IOException ioe) {
+        System.err.println("I/O error, reconnecting… " + ioe.getMessage());
+        tcpClient.reconnect();
+      }
+    }
+  }
 }

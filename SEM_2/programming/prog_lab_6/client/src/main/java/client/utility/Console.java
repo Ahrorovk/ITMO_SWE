@@ -13,4 +13,8 @@ public interface Console {
 	String getPrompt();
 	void selectFileScanner(Scanner obj);
 	void selectConsoleScanner();
+  String readNonEmptyLine() throws Ask.AskBreak;
+  int    readPositiveInt()   throws Ask.AskBreak;
+  double readPositiveDouble()throws Ask.AskBreak;
+
 }

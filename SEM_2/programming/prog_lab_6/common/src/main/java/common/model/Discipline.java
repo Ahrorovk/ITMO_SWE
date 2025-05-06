@@ -11,23 +11,23 @@ public class Discipline implements Serializable {
   private int practiceHours; // Часы практики (может быть любое значение)
 
   public Discipline(String name, int practiceHours) {
-    if (name == null || name.trim().isEmpty()) {
-      throw new IllegalArgumentException("Название дисциплины не может быть null или пустым");
-    }
     this.name = name;
     this.practiceHours = practiceHours;
   }
 
-  public Discipline(String s) {
-    try {
-      this.name = s.split(" ; ")[0];
-
+  public Discipline(String serialized) {
+    // expect exactly two parts: "name;practiceHours"
+    String[] parts = serialized.split(";", 2);
+    this.name = parts[0];
+    if (parts.length > 1 && !parts[1].isBlank()) {
       try {
-        this.practiceHours = s.split(" ; ")[3].equals("null") ? null : Integer.parseInt(s.split(";")[1]);
+        this.practiceHours = Integer.parseInt(parts[1]);
       } catch (NumberFormatException e) {
-        return;
+        throw new IllegalArgumentException(
+          "Invalid practiceHours: " + parts[1], e);
       }
-    } catch (ArrayIndexOutOfBoundsException e) {
+    } else {
+      this.practiceHours = 0; // or whatever default you prefer
     }
   }
 
@@ -36,9 +36,6 @@ public class Discipline implements Serializable {
   }
 
   public void setName(String name) {
-    if (name == null || name.trim().isEmpty()) {
-      throw new IllegalArgumentException("Название дисциплины не может быть null или пустым");
-    }
     this.name = name;
   }
 

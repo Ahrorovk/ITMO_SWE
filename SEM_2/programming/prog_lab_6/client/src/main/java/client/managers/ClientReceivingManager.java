@@ -2,63 +2,62 @@ package client.managers;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.Objects;
-
 public class ClientReceivingManager {
-
-  private byte[] receivedData;
-  private final int DATA_QUERY = 1024;
+  private static final int PACKET_SIZE = 1024;
   private final TCPClient tcpClient;
+  private byte[] receivedData = new byte[0];
 
   public ClientReceivingManager(TCPClient tcpClient) {
     this.tcpClient = tcpClient;
-    this.receivedData = new byte[0];
   }
 
-  public byte[] receive() {
+  public byte[] receive() throws InterruptedException, IOException {
     receivedData = new byte[0];
-    for (; ; ) {
+    ByteBuffer buf = ByteBuffer.allocate(PACKET_SIZE);
+
+    while (true) {
       try {
-        if (tcpClient.getSocketChannel() == null)
-          continue;
+        SocketChannel channel = tcpClient.getSocketChannel();
 
-
-        while (tcpClient.getSocketChannel().isConnectionPending()) {
-          tcpClient.getSocketChannel().finishConnect();
-        }
-
-        if (!tcpClient.getSocketChannel().isOpen()) {
-          tcpClient.start();
-          Thread.sleep(3000);
+        if (channel == null || !channel.isOpen() || !channel.isConnected()) {
+          tcpClient.reconnect();
           continue;
         }
-        ByteBuffer byteBuffer = ByteBuffer.allocate(DATA_QUERY);
-        var readBytes = tcpClient.getSocketChannel().read(byteBuffer);
-        if (readBytes == 0) {
-          Thread.sleep(50);
-          continue;
+
+        if (channel.isConnectionPending()) {
+          channel.finishConnect();
         }
-        if (readBytes == -1)
-          tcpClient.getSocketChannel().close();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(receivedData);
-        outputStream.write(Arrays.copyOf(byteBuffer.array(), byteBuffer.array().length - 1));
-        receivedData = outputStream.toByteArray();
-        if (byteBuffer.array()[readBytes - 1] == 1) {
-          return receivedData;
-        }
-        byteBuffer.clear();
-      } catch (Exception e) {
-        if (Objects.equals(e.getMessage(), "Connection reset")) {
-          try {
-            Thread.sleep(3000);
-            tcpClient.getSocketChannel().close();
-            tcpClient.start();
-          } catch (Exception e1) {
+
+
+        buf.clear();
+        int n = channel.read(buf);
+
+        if (n > 0) {
+           byte[] chunk = Arrays.copyOf(buf.array(), n - 1);
+          ByteArrayOutputStream out = new ByteArrayOutputStream();
+          out.write(receivedData);
+          out.write(chunk);
+          receivedData = out.toByteArray();
+
+          if (buf.array()[n - 1] == 1) {
+            return receivedData;
           }
+
+        } else if (n < 0) {
+          tcpClient.reconnect();
+
+        } else {
+          Thread.sleep(50);
         }
+
+      } catch (IOException ioe) {
+        tcpClient.reconnect();
+
       }
     }
   }

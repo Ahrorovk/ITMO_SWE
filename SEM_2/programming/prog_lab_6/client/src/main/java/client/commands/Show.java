@@ -20,18 +20,15 @@ public class Show extends Command {
     @Override
     public boolean apply(String[] arguments) {
         if (!arguments[1].isEmpty()) {
-            console.println("Неправильное количество аргументов!");
+            console.println("Incorrect number of arguments!");
             console.println("Using: '" + getName() + "'");
             return false;
         }
-      System.out.println("Show -> " + tcpManager.send("show").getResponseObj());
-        if(tcpManager.send("show").getResponseObj() != null) {
-          var s = ((LinkedList<LabWork>) tcpManager.send("show").getResponseObj()).stream().map(LabWork::toString).collect(Collectors.joining("\n"));
-          if (s.isEmpty())
+      var s=((LinkedList<LabWork>)tcpManager.send("show").getResponseObj()).stream().map(LabWork::toString).collect(Collectors.joining("\n"));
+        if (s.isEmpty())
             console.println("Collection is empty!");
           else
             console.println(s);
-        }
       return true;
     }
 }

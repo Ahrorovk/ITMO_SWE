@@ -15,78 +15,42 @@ public class Ask {
   }
 
   public static LabWork askLabWork(Console console) throws AskBreak {
-    try {
-      console.print("name: ");
-      String name;
-      while (true) {
-        name = console.readln().trim();
-        if (name.equals("exit")) throw new AskBreak();
-        if (!name.equals("")) break;
+    while (true) {
+      try {
+        // 1) Имя
         console.print("name: ");
-      }
-      var coordinates = askCoordinates(console);
-      console.println("Coordinates: " + coordinates.toString());
-      Integer maximumPoint;
-      console.print("maximumPoint: ");
-      while (true) {
-        var line = console.readln().trim();
-        if (line.equals("exit")) throw new AskBreak();
-        if (line.equals("")) {
-          maximumPoint = 0;
-          break;
-        }
-        try {
-          maximumPoint = Integer.parseInt(line);
-          if (maximumPoint > 0) break;
-        } catch (NumberFormatException e) {
-          console.print("Invalid number: ");
-        }
-        console.print("maximumPoint: ");
-      }
+        String name = console.readNonEmptyLine();        // бросит AskBreak или вернёт не-пустую
 
-      Integer minimumPoint;
-      console.print("minimumPoint: ");
-      while (true) {
-        var line = console.readln().trim();
-        if (line.equals("exit")) throw new AskBreak();
-        if (line.equals("")) {
-          minimumPoint = 0;
-          break;
-        }
-        try {
-          minimumPoint = Integer.parseInt(line);
-          if (minimumPoint > 0) break;
-        } catch (NumberFormatException e) {
-          console.print("Invalid number: ");
-        }
-        console.print("minimumPoint: ");
-      }
-      Integer personalQualitiesMaximum;
-      console.print("personalQualitiesMaximum: ");
-      while (true) {
-        var line = console.readln().trim();
-        if (line.equals("exit")) throw new AskBreak();
-        if (line.equals("")) {
-          personalQualitiesMaximum = 0;
-          break;
-        }
-        try {
-          personalQualitiesMaximum = Integer.parseInt(line);
-          if (personalQualitiesMaximum > 0) break;
-        } catch (NumberFormatException e) {
-          console.print("Invalid number: ");
-        }
-        console.print("personalQualitiesMaximum: ");
-      }
+        // 2) Координаты
+        Coordinates coords = askCoordinates(console);
 
-      var difficulty = askDifficulty(console);
-      var discipline = askDiscipline(console);
-      return new LabWork(name, coordinates, minimumPoint, maximumPoint, personalQualitiesMaximum, difficulty, discipline);
-    } catch (NoSuchElementException | IllegalStateException e) {
-      console.printError("Reading LabWork failed");
-      return null;
+        // 3) Минимальная точка
+        console.print("minimalPoint (> 0): ");
+        double minP = console.readPositiveDouble();
+
+        // 4) Максимальная точка
+        console.print("maximumPoint (> 0): ");
+        int maxP = console.readPositiveInt();
+
+        // 5) Личные качества
+        console.print("personalQualitiesMaximum (> 0): ");
+        int pqm = console.readPositiveInt();
+
+        // 6) Сложность и дисциплина
+        Difficulty diff   = askDifficulty(console);
+        Discipline disc   = askDiscipline(console);
+
+        // 7) Если мы добрались до сюда — все поля валидны, создаём объект
+        return new LabWork(name, coords, minP, maxP, pqm, diff, disc);
+
+      } catch (IllegalArgumentException e) {
+        // В конструкторе LabWork или валидациях было что-то не так
+        console.println("Invalid input: " + e.getMessage() + " — попробуйте ещё раз.");
+        // и цикл начинается заново, спрашиваем имя
+      }
     }
   }
+
 
   public static Coordinates askCoordinates(Console console) throws AskBreak {
     try {
