@@ -1,0 +1,86 @@
+/* ------------------------------------------
+ *  Shadow‑plugin доступен всем подпроектам
+ * ------------------------------------------ */
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+}
+
+/* ------------------------------------------
+ *  Общие настройки
+ * ------------------------------------------ */
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    repositories { mavenCentral() }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+}
+
+/* ==========================================
+ *  =====     Модуль :server            =====
+ * ========================================== */
+project(':server') {
+
+    apply plugin: 'application'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    mainClassName = 'server.Main'                 // Gradle 7 стиль
+
+    dependencies {
+        implementation project(':common')
+
+        implementation 'com.google.code.gson:gson:2.10.1'
+        implementation 'com.google.guava:guava:31.1-jre'
+        implementation 'org.apache.commons:commons-lang3:3.12.0'
+        implementation 'org.postgresql:postgresql:42.7.5'
+        implementation 'com.opencsv:opencsv:5.10'
+
+        implementation 'org.slf4j:slf4j-api:2.0.17'
+        runtimeOnly    'org.slf4j:slf4j-simple:2.0.17'
+
+        implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+        implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+    }
+
+    shadowJar {
+        archiveClassifier.set('eight')              // server-all.jar
+        manifest { attributes 'Main-Class': 'server.Main' }
+    }
+
+    tasks.build.dependsOn tasks.shadowJar
+}
+
+/* ==========================================
+ *  =====     Модуль :client            =====
+ * ========================================== */
+project(':client') {
+
+    apply plugin: 'application'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    mainClassName = 'client.Main'
+
+    dependencies {
+        implementation project(':common')
+        implementation 'org.apache.commons:commons-lang3:3.12.0'
+        implementation 'com.google.guava:guava:31.1-jre'
+        implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+        implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+    }
+
+    tasks.named('run') { standardInput = System.in }
+
+    shadowJar {
+        archiveClassifier.set('seven')              // client-all.jar
+        manifest { attributes 'Main-Class': 'client.Main' }
+    }
+
+    tasks.build.dependsOn tasks.shadowJar
+}
