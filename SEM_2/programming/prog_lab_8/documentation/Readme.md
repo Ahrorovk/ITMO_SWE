@@ -220,14 +220,14 @@ Authorization: <token>
 
 ```json
 {
-  "name": "string",
-  "coordinates": { "x": long, "y": long },
-  "minimalPoint": double,
-  "maximumPoint": int,
-  "personalQualitiesMaximum": int,
-  "difficulty": "VERY_EASY" | "EASY" | "NORMAL" | "IMPOSSIBLE" | "HOPELESS",
-  "discipline": { "name": "string", "practiceHours": int },
-  "creationDate": "yyyy-mm-dd"
+    "name": "string",
+    "coordinates": { "x": long, "y": long },
+    "minimalPoint": double,
+    "maximumPoint": int,
+    "personalQualitiesMaximum": int,
+    "difficulty": "VERY_EASY" | "EASY" | "NORMAL" | "TERRIBLE",
+    "discipline": { "name": "string", "practiceHours": int },
+    "creationDate": "yyyy-mm-dd"
 }
 ```
 
@@ -252,10 +252,10 @@ Authorization: <token>
 
 ## 🔗 Прочее
 
-* [Swagger/OpenAPI YAML](openapi.yaml) — можно открыть через [Swagger Editor](https://editor.swagger.io/)
+* [Swagger/OpenAPI YAML](documentation/openapi.yaml) — можно открыть через [LabWorks Api Swagger](https://app.swaggerhub.com/apis/ahrorovk_apk/LabWorksAPI/1.0.0)
 * Если есть вопросы — создавайте Issues или пишите на почту автора!
 
 ---
 
 **Автор:**
-[eren24r.ru](http://eren24r.ru:8090)
+[ahrorovk](https://bento.me/ahrorovk)
