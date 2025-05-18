@@ -15,7 +15,6 @@ public class Main {
 
   public static void main(String[] args) {
 
-    /* ─────────── инициализация среды ─────────── */
     StandardConsole console = new StandardConsole();
     PropertyManager props = new PropertyManager("prop.ini", console);
     if (!props.readConf()) System.exit(1);
@@ -35,37 +34,24 @@ public class Main {
     CollectionManager collMgr = new CollectionManager(dump, userMgr);
     collMgr.init();
 
-    /* ─────────── команды ─────────── */
     CommandManager cmdMgr = CommandConfigurator.configure(userMgr, collMgr);
 
-    /* ─────────── ядро вызова команд ─────────── */
     Runner runner = new Runner(console, cmdMgr, userMgr);
 
-    TokenManager tokenManager = new TokenManager();
-    /* =========================================================== */
-    /*                         TCP-СЕРВЕР                           */
-    /* =========================================================== */
     int tcpPort = props.getProperty("PORT", 2366);
     TCPServer tcp = new TCPServer(tcpPort, runner::executeCommand);
     new Thread(tcp::start, "tcp-server").start();
     LOG.info("TCP server listening on :{}", tcpPort);
 
-    /* =========================================================== */
-    /*                         REST-СЕРВЕР                         */
-    /* =========================================================== */
     int restPort = props.getProperty("REST_PORT", 8080);
     try {
-      new RestServer(restPort, runner::executeCommand, userMgr, cmdMgr, tokenManager);  // запускается в конструкторе
+      new RestServer(restPort, runner::executeCommand, userMgr, cmdMgr, collMgr);
       LOG.info("REST server listening on :{} (/api/command)", restPort);
     } catch (IOException e) {
       LOG.error("REST server failed: {}", e.getMessage());
     }
   }
 
-  /* ---------------------------------------------------------------
-     Вынес регистрацию команд в отдельный метод-помощник, чтобы
-     main не разрастался. При желании оставьте прямой блок инициализации.
-     --------------------------------------------------------------- */
   private static class CommandConfigurator {
     static CommandManager configure(UserManager um, CollectionManager cm) {
 
@@ -91,7 +77,6 @@ public class Main {
         register("reorder", new Reorder(cm));
         register("is_id_exist", new IsIdExist(cm));
 
-        /* если нужны команды управления пользователями — добавьте их */
       }};
     }
   }

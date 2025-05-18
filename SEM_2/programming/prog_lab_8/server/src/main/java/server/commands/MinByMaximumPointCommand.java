@@ -25,10 +25,11 @@ public class MinByMaximumPointCommand extends Command {
         .filter(lw -> lw.getMaximumPoint() != null)
         .min(Comparator.comparingInt(LabWork::getMaximumPoint));
 
+      LabWork labWork = minLabWork.orElse(null);
       String body = minLabWork
-        .map(lw -> "An object with a minimum maximum score:\n" + lw)
+        .map(lw -> "An object with a minimum maximum score" )
         .orElse("The collection contains no elements with maximumPoint");
-      return new Response(body);
+      return new Response(body,labWork);
     } catch (Exception e) {
       return new Response(e.getMessage());
     }

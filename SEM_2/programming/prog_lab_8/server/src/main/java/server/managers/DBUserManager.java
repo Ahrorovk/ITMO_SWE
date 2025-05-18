@@ -55,7 +55,7 @@ public class DBUserManager {
       ResultSet rs = stmt.executeQuery();
       if (rs.next()) {
         return new User(
-          rs.getLong("id"),
+          rs.getInt("id"),
           rs.getString("login"),
           rs.getString("password"),
           rs.getString("role")
@@ -67,7 +67,7 @@ public class DBUserManager {
     return null;
   }
 
-  public boolean insert(User user) {
+  public String insert(User user) {
     String sql = "INSERT INTO tuser(login, password, role) VALUES (?, ?, ?)";
     try (PreparedStatement stmt = bdManager.getPreparedStatementRGK(sql)) {
 
@@ -81,13 +81,16 @@ public class DBUserManager {
       try (ResultSet gk = stmt.getGeneratedKeys()) {
         if (gk.next()) {
           user.setID(gk.getLong(1));
-          return true;
+          return "";
         }
         throw new SQLException("Creating user failed, no ID obtained.");
       }
     } catch (SQLException e) {
       System.out.println(e);
-      return false;
+      if(e.getMessage().contains("already exists"))
+      return "User " + '`'+ user.getLogin()+'`' + " is already exists.";
+      else
+        return e.getMessage();
     }
   }
 
@@ -128,7 +131,7 @@ public class DBUserManager {
   }
 
   public boolean insertToken(User user, String token) {
-    String sql = "INSERT INTO ttoken(token, id_user) VALUES (?, ?)";
+    String sql = "INSERT INTO ttoken(token, id_user) VALUES (?, ?) ON CONFLICT DO NOTHING";
     try (PreparedStatement stmt = bdManager.getPreparedStatement(sql)) {
       stmt.setString(1, token);
       stmt.setLong(2, user.getID());

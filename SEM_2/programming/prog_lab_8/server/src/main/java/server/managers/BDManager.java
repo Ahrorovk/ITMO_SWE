@@ -27,7 +27,7 @@ public class BDManager {
 		try {
 			connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
-			getStatement().executeQuery("select pg_catalog.set_config('search_path', 's476150', false);");
+//			getStatement().executeQuery("select pg_catalog.set_config('search_path', 's476150', false);");
 			//"SET search_path TO S476150;"
 		} catch (SQLException e) { console.printError("Connection Failed"); return false; }
 

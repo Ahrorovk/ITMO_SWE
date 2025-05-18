@@ -29,7 +29,7 @@ public class PrintUniqueDiscipline extends Command {
       if (uniqueDisciplines.isEmpty()) {
         return new Response(400, "No unique disciplines found.");
       } else {
-        return new Response("Unique Disciplines: "+uniqueDisciplines.toString());
+        return new Response("Unique Disciplines", uniqueDisciplines);
       }
     } catch (Exception e) {
       return new Response(400, "Unique disciplines could not be found.");

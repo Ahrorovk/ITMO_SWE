@@ -1,12 +1,14 @@
 package server.commands;
 
 
+import common.dto.FilterDifficultyRequest;
 import common.model.Difficulty;
 import common.model.LabWork;
 import common.model.Response;
 import server.managers.CollectionManager;
 import server.utility.User;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,6 @@ public class FilterGreaterThanDifficulty extends Command {
 
   @Override
   public Response apply(String[] arguments, Object obj, User user) {
-    /* ── проверка аргументов ─────────────────────────────────────────── */
     if (!arguments[1].isEmpty()) {
       return new Response(
         400,
@@ -32,7 +33,8 @@ public class FilterGreaterThanDifficulty extends Command {
     }
 
     try {
-      Difficulty difficulty = (Difficulty) obj;
+      FilterDifficultyRequest filterDifficultyRequest = (FilterDifficultyRequest) obj;
+      Difficulty difficulty = Difficulty.valueOf(filterDifficultyRequest.getDifficulty().toUpperCase());
 
       List<LabWork> filtered = collectionManager.getCollection().stream()
         .filter(lw ->

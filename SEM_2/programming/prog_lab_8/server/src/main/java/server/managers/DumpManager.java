@@ -45,8 +45,12 @@ public class DumpManager {
 
   /* ---------- LAB WORK (коллекция) ---------- */
 
+
   public LinkedList<DBLabWorkManager.LabWorkAndUserID> selectLabWorks() {
     return dbLabWorkManager.select();
+  }
+  public LinkedList<DBLabWorkManager.LabWorkAndUserID> selectLabWorksByUserId(Integer userID) {
+    return dbLabWorkManager.selectByUserId(userID);
   }
 
   public boolean insertLabWork(LabWork lw, long userID) {
@@ -67,7 +71,7 @@ public class DumpManager {
     return dbUserManager.select();
   }
 
-  public boolean insertUser(User u) {
+  public String insertUser(User u) {
     return dbUserManager.insert(u);
   }
 

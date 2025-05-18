@@ -4,28 +4,22 @@ import common.model.Response;
 import server.managers.CollectionManager;
 import server.utility.User;
 
-/**
- * Команда 'reorder'. Отсортировать коллекцию в порядке, обратном нынешнему.
- */
 public class Reorder extends Command {
 
 	private final CollectionManager collectionManager;
 
 	public Reorder(CollectionManager collectionManager) {
-		super("reorder", "отсортировать коллекцию в порядке, обратном нынешнему", "REORDER");
+		super("reorder", "sort the collection in the reverse order of the current one", "REORDER");
 
 		this.collectionManager = collectionManager;
 	}
 
-	/**
-	 * Выполняет команду
-	 * @return Успешность выполнения команды.
-	 */
 	@Override
 	public Response apply(String[] arguments, Object obj, User u) {
-		if (!arguments[1].isEmpty()) return new Response(400, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+		if (!arguments[1].isEmpty()) return new Response(400, "Incorrect number of arguments!\n" +
+      "Using: '" + getName() + "'");
 		collectionManager.isAscendingSort ^= true;
 		collectionManager.update();
-		return new Response("Отсортировано!");
+		return new Response("Sorted!");
 	}
 }

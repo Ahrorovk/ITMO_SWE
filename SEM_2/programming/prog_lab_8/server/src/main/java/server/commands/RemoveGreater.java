@@ -50,7 +50,6 @@ public class RemoveGreater extends Command {
         );
       }
 
-      /* ── удаляем по одному, учитывая владельца ─────────────────────── */
       int removed = 0;
       for (LabWork lw : toRemove) {
         if (collectionManager.remove(lw.getId(), user)) {

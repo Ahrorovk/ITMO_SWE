@@ -5,27 +5,21 @@ import common.model.Response;
 import server.managers.UserManager;
 import server.utility.User;
 
-/**
- * Команда 'create_user'. Создаёт нового пользователя.
- */
 public class NUserCreate extends Command {
 
 	private final UserManager userManage;
 
 	public NUserCreate(UserManager userManage) {
-		super("create_user login:password", "создать нового пользователя", "DEFAULT");
+		super("create_user login:password", "create a new user", "DEFAULT");
 		this.userManage = userManage;
 	}
 
-	/**
-	 * Выполняет команду
-	 * @return Успешность выполнения команды.
-	 */
 	@Override
 	public Response apply(String[] arguments, Object obj, User u) {
-		if (arguments[1].isEmpty()) return new Response(400, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+		if (arguments[1].isEmpty()) return new Response(400, "Incorrect number of arguments!\n" +
+      "Using: '" + getName() + "'");
 		try {
-			if (userManage.addUser(arguments[1].split(":")[0],arguments[1].split(":")[1]))
+			if (userManage.addUser(arguments[1].split(":")[0], arguments[1].split(":")[1]).isEmpty())
 				return new Response("OK");
 			else
 				return new Response(500, "NOOK");

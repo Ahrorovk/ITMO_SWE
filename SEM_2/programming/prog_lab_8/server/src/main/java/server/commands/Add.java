@@ -10,7 +10,7 @@ public class Add extends Command {
   private final CollectionManager collectionManager;
 
   public Add(CollectionManager collectionManager) {
-    super("add {element}", "добавить новый элемент в коллекцию", "ADD");
+    super("add {element}", "add a new item to the collection", "ADD");
     this.collectionManager = collectionManager;
   }
 
@@ -22,7 +22,8 @@ public class Add extends Command {
   @Override
   public Response apply(String[] arguments, Object obj, User u) {
     if (!arguments[1].isEmpty())
-      return new Response(400, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+      return new Response(400, "Incorrect number of arguments!\n" +
+        "Using: '" + getName() + "'");
 
     LabWork d = (LabWork) obj;
     if (collectionManager.add(d, u))

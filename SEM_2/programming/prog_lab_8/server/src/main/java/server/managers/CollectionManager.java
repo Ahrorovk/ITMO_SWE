@@ -105,6 +105,14 @@ public class CollectionManager {
       userIdMap.put(e.labWork, e.userID);
     }
   }
+  public void selectByID(Integer userId) {
+    collection.clear();
+    userIdMap.clear();
+    for (var e : dumpManager.selectLabWorksByUserId(userId)) {
+      collection.addLast(e.labWork);
+      userIdMap.put(e.labWork, e.userID);
+    }
+  }
 
   @Override
   public String toString() {

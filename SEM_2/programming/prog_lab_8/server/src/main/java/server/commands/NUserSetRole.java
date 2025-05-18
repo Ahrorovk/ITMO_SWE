@@ -26,7 +26,8 @@ public class NUserSetRole extends Command {
 	 */
 	@Override
 	public Response apply(String[] arguments, Object obj, User u) {
-		if (arguments[1].isEmpty()) return new Response(400, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+		if (arguments[1].isEmpty()) return new Response(400, "Incorrect number of arguments!\n" +
+      "Using:'" + getName() + "'");
 		try {
 			if (arguments[1].trim().equals(":"))
 				return new Response(stats());

@@ -1,0 +1,334 @@
+﻿openapi: 3.0.0
+info:
+    title: LabWorks REST API
+    description: API для управления лабораторными работами и пользователями
+    version: 1.0.0
+servers:
+    - url: http://eren24r.ru:8090
+tags:
+    - name: Auth
+      description: Авторизация и регистрация
+    - name: LabWorks
+      description: Действия с лабораторными работами
+
+paths:
+    /api/login:
+        post:
+            tags: [Auth]
+            summary: Авторизация пользователя
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UserCredentials'
+            responses:
+                200:
+                    description: Успешная авторизация
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    token:
+                                        type: string
+                400:
+                    description: Request is null!
+                401:
+                    description: UnAuthorized!
+                500:
+                    description: Внутренняя ошибка
+
+    /api/sign-up:
+        post:
+            tags: [Auth]
+            summary: Регистрация пользователя
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UserCredentials'
+            responses:
+                200:
+                    description: Успешная регистрация
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    token:
+                                        type: string
+                400:
+                    description: Request is null!
+                401:
+                    description: Пользователь уже существует
+                500:
+                    description: Внутренняя ошибка
+
+    /api/lab-works/add:
+        post:
+            tags: [LabWorks]
+            summary: Добавить лабораторную работу
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LabWork'
+            responses:
+                200:
+                    description: Лабораторная работа добавлена
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApiResponse'
+                401:
+                    description: UnAuthorized!
+
+    /api/lab-works/add-if-max:
+        post:
+            tags: [LabWorks]
+            summary: Добавить лабораторную работу, если она больше максимальной
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LabWork'
+            responses:
+                200:
+                    description: Результат операции
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApiResponse'
+                401:
+                    description: UnAuthorized!
+
+    /api/lab-works/show:
+        get:
+            tags: [LabWorks]
+            summary: Получить все лабораторные работы пользователя
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Список работ
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApiResponse'
+
+    /api/lab-works/info:
+        get:
+            tags: [LabWorks]
+            summary: Получить информацию о коллекции
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Информация о коллекции
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApiResponse'
+
+    /api/lab-works/clear:
+        get:
+            tags: [LabWorks]
+            summary: Очистить коллекцию пользователя
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Очищено
+
+    /api/lab-works/update:
+        post:
+            tags: [LabWorks]
+            summary: Обновить лабораторную работу по id
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateLabWorkRequest'
+            responses:
+                200:
+                    description: Лабораторная работа обновлена
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApiResponse'
+
+    /api/lab-works/remove-by-id:
+        post:
+            tags: [LabWorks]
+            summary: Удалить лабораторную работу по id
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: integer
+            responses:
+                200:
+                    description: Удалено
+
+    /api/lab-works/remove-greater:
+        post:
+            tags: [LabWorks]
+            summary: Удалить элементы больше заданного
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Удалено
+
+    /api/lab-works/remove-lower:
+        post:
+            tags: [LabWorks]
+            summary: Удалить элементы меньше заданного
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Удалено
+
+    /api/lab-works/reorder:
+        post:
+            tags: [LabWorks]
+            summary: Перемешать элементы коллекции
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Перемешано
+
+    /api/lab-works/print-unique-discipline:
+        get:
+            tags: [LabWorks]
+            summary: Уникальные дисциплины
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Дисциплины
+
+    /api/lab-works/min-by-maximum-point:
+        get:
+            tags: [LabWorks]
+            summary: Минимальный maximumPoint
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Лабораторная работа
+
+    /api/lab-works/filter-greater-difficulty:
+        get:
+            tags: [LabWorks]
+            summary: Все работы с большей сложностью
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                difficulty:
+                                    type: string
+                                    enum: [VERY_EASY, EASY, NORMAL, IMPOSSIBLE, HOPELESS]
+            responses:
+                200:
+                    description: Список работ
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+    schemas:
+        UserCredentials:
+            type: object
+            required: [login, password]
+            properties:
+                login:
+                    type: string
+                password:
+                    type: string
+
+        LabWork:
+            type: object
+            properties:
+                name:
+                    type: string
+                coordinates:
+                    $ref: '#/components/schemas/Coordinates'
+                minimalPoint:
+                    type: number
+                    format: double
+                maximumPoint:
+                    type: integer
+                personalQualitiesMaximum:
+                    type: integer
+                difficulty:
+                    type: string
+                    enum: [VERY_EASY, EASY, NORMAL, IMPOSSIBLE, HOPELESS]
+                discipline:
+                    $ref: '#/components/schemas/Discipline'
+                creationDate:
+                    type: string
+                    format: date
+
+        UpdateLabWorkRequest:
+            type: object
+            required: [id, labWork]
+            properties:
+                id:
+                    type: integer
+                labWork:
+                    $ref: '#/components/schemas/LabWork'
+
+        Coordinates:
+            type: object
+            properties:
+                x:
+                    type: number
+                    format: int64
+                y:
+                    type: number
+                    format: int64
+
+        Discipline:
+            type: object
+            properties:
+                name:
+                    type: string
+                practiceHours:
+                    type: integer
+
+        ApiResponse:
+            type: object
+            properties:
+                exitCode:
+                    type: integer
+                message:
+                    type: string
+                body:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/LabWork'

@@ -4,6 +4,7 @@ import server.utility.User;
 
 import java.security.MessageDigest;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -18,13 +19,13 @@ public class UserManager {
 
   public boolean init() {
     users.clear();
-    for (var e: dumpManager.selectUsers())
+    for (var e : dumpManager.selectUsers())
       users.addLast(e);
     return true;
   }
 
   public User getUser(String login) {
-    for (var e: users)
+    for (var e : users)
       if (e.getLogin().equals(login))
         return e;
     return null;
@@ -36,28 +37,34 @@ public class UserManager {
 
   public boolean canEval(User u, String func) {
     if (func.equals("DEFAULT")) return true;
-    for (var f: dumpManager.selectF(u.getRole()))
+    for (var f : dumpManager.selectF(u.getRole()))
       if (f.equals(func))
         return true;
     return false;
   }
 
-  public boolean addUser(String login, String password) {
-    MessageDigest md=null;
-    try{ md = MessageDigest.getInstance("MD5"); } catch (Exception e) {}
-    md.update(password.getBytes());
-    byte[] digest = md.digest();
-    String passHash = java.util.HexFormat.of().formatHex(digest);
-    var u = new User(0, login, passHash, "defrole");
-    if (dumpManager.insertUser(u))
-      users.addLast(u);
-    else
-      return false;
-    return true;
+  public String addUser(String login, String password) {
+    try {
+      MessageDigest md = null;
+      md = MessageDigest.getInstance("MD5");
+      md.update(password.getBytes());
+      byte[] digest = md.digest();
+      String passHash = java.util.HexFormat.of().formatHex(digest);
+      var u = new User(0, login, passHash, "defrole");
+      if (Objects.equals(dumpManager.insertUser(u), ""))
+        users.addLast(u);
+      else
+        return dumpManager.insertUser(u);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "";
   }
+
   public boolean isValid(String token) {
     return tokenToUser.containsKey(token);
   }
+
   public boolean addFunctionality(String role, String funcs) {
     return dumpManager.insertF(role, funcs.split(","));
   }
@@ -70,7 +77,7 @@ public class UserManager {
     return String.join(",", dumpManager.selectF(role));
   }
 
-  public User getUserByToken(String token){
+  public User getUserByToken(String token) {
     return dumpManager.getUserByToken(token);
   }
 

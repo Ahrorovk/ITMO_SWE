@@ -16,18 +16,15 @@ public class GetCommands extends Command {
   private final UserManager userManager;
 
   public GetCommands(CommandManager commandManager, UserManager userManager) {
-    super("get_commands", "вывести список серверных команд", "DEFAULT");
+    super("get_commands", "display a list of server commands", "DEFAULT");
     this.commandManager = commandManager;
     this.userManager = userManager;
   }
 
-  /**
-   * Выполняет команду
-   * @return Успешность выполнения команды.
-   */
   @Override
   public Response apply(String[] arguments, Object obj, User u) {
-    if (!arguments[1].isEmpty()) return new Response(400, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+    if (!arguments[1].isEmpty()) return new Response(400, "Incorrect number of arguments!\n" +
+      "Using: '" + getName() + "'");
     if (u.getID()<1) return new Response("not logined");
     var s = new ArrayList<>(Arrays.asList(
       commandManager.getCommands().values().stream().filter(
@@ -37,10 +34,10 @@ public class GetCommands extends Command {
           //!command.getName().equals("show") &&
       ).map(
         command -> new String[]{
-          (command.getName()+" ").split(" ",2)[0], // command
-          command.getName(), // command for help
-          (command.getName()+" ").split(" ",2)[1].trim().replace(' ', ';'), // arguments
-          command.getDescription() // description
+          (command.getName()+" ").split(" ",2)[0],
+          command.getName(),
+          (command.getName()+" ").split(" ",2)[1].trim().replace(' ', ';'),
+          command.getDescription()
         }
       ).toArray()));
 
