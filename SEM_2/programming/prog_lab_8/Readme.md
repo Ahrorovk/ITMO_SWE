@@ -252,7 +252,7 @@ Authorization: <token>
 
 ## 🔗 Прочее
 
-* [Swagger/OpenAPI YAML](documentation/openapi.yaml) — можно открыть через [Swagger Editor](https://editor.swagger.io/)
+* [Swagger/OpenAPI YAML](documentation/openapi.yaml) — можно открыть через [LabWorks Api Swagger](https://app.swaggerhub.com/apis/ahrorovk_apk/LabWorksAPI/1.0.0)
 * Если есть вопросы — создавайте Issues или пишите на почту автора!
 
 ---
