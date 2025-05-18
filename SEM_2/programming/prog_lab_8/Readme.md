@@ -258,4 +258,4 @@ Authorization: <token>
 ---
 
 **Автор:**
-[eren24r.ru](http://eren24r.ru:8090)
+[ahrorovk](https://bento.me/ahrorovk)
