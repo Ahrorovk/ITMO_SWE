@@ -225,7 +225,7 @@ Authorization: <token>
   "minimalPoint": double,
   "maximumPoint": int,
   "personalQualitiesMaximum": int,
-  "difficulty": "VERY_EASY" | "EASY" | "NORMAL" | "IMPOSSIBLE" | "HOPELESS",
+  "difficulty": "VERY_EASY" | "EASY" | "NORMAL" | "TERRIBLE",
   "discipline": { "name": "string", "practiceHours": int },
   "creationDate": "yyyy-mm-dd"
 }
