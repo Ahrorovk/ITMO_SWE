@@ -252,7 +252,7 @@ Authorization: <token>
 
 ## 🔗 Прочее
 
-* [Swagger/OpenAPI YAML](openapi.yaml) — можно открыть через [Swagger Editor](https://editor.swagger.io/)
+* [Swagger/OpenAPI YAML](documentation/openapi.yaml) — можно открыть через [Swagger Editor](https://editor.swagger.io/)
 * Если есть вопросы — создавайте Issues или пишите на почту автора!
 
 ---
