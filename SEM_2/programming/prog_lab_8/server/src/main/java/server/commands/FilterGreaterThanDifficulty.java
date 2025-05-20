@@ -44,12 +44,12 @@ public class FilterGreaterThanDifficulty extends Command {
         .collect(Collectors.toList());
 
       String body = filtered.isEmpty()
-        ? "No items with difficulty greater than " + difficulty
+        ? "No items with difficulty greater than "
         : filtered.stream()
         .map(LabWork::toString)
         .collect(Collectors.joining(System.lineSeparator()));
 
-      return new Response(body);
+      return new Response(body,filtered);
 
     } catch (Exception e) {
       return new Response(400, e.getMessage());

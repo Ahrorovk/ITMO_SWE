@@ -59,7 +59,7 @@ public class DefaultCommand extends Command {
       return false;
     }
     var res = tcpManager.send(arguments[0]+" "+arguments[1], sendObj);
-    console.println(res.getMassage());
+    console.println(res.getMessage());
     return res.getExitCode()<300;
   }
 

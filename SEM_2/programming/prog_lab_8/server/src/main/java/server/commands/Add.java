@@ -14,11 +14,6 @@ public class Add extends Command {
     this.collectionManager = collectionManager;
   }
 
-  /**
-   * Выполняет команду
-   *
-   * @return Успешность выполнения команды.
-   */
   @Override
   public Response apply(String[] arguments, Object obj, User u) {
     if (!arguments[1].isEmpty())
@@ -27,7 +22,7 @@ public class Add extends Command {
 
     LabWork d = (LabWork) obj;
     if (collectionManager.add(d, u))
-      return new Response("Labwork успешно добавлен!");
+      return new Response("Labwork successfully added to the collection!");
     else
       return new Response(500, "Access error");
   }

@@ -23,11 +23,11 @@ public class TCPManager {
   }
 
   public String sendAndGetMassage(String s, Object obj) {
-    return send(s, obj).getMassage();
+    return send(s, obj).getMessage();
   }
 
   public String sendAndGetMassage(String s) {
-    return send(s).getMassage();
+    return send(s).getMessage();
   }
 
   public void login(String l, String p) {

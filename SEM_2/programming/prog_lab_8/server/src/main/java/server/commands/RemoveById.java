@@ -16,8 +16,6 @@ public class RemoveById extends Command {
 
 	@Override
 	public Response apply(String[] arguments, Object obj, User user) {
-    if (!arguments[1].isEmpty())
-      return new Response(400, "Incorrect number of arguments!\nUsing: '" + getName() + "'");
     long id = -1;
     try { id = Long.parseLong(arguments[1].trim()); } catch (NumberFormatException e) { return new Response(400, "The ID was not recognized"); }
 

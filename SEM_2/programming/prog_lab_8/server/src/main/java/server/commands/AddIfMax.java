@@ -37,7 +37,7 @@ public class AddIfMax extends Command {
       if (labWork.getMaximumPoint() > currentMax) {
         if (collectionManager.add(labWork, user)) {
           return new Response(
-            "LabWork added to collection\n" +
+            "LabWork added to collection",
               collectionManager.byId(labWork.getId())
           );
         }

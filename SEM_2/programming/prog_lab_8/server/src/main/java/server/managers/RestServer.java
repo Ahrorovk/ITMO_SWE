@@ -3,6 +3,7 @@ package server.managers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpServer;
+import common.dto.ByIdRequest;
 import common.dto.CreateUserReq;
 import common.dto.FilterDifficultyRequest;
 import common.dto.UpdateLabWorkRequest;
@@ -123,7 +124,8 @@ public class RestServer {
 
         boolean insertToken = userManager.insertToken(u, token);
 
-        byte[] json = gson.toJson(Map.of("token", token)).getBytes();
+        byte[] json = gson.toJson(new Response(200,"Success",token)).getBytes();
+
         if (insertToken) {
           collectionManager.selectByID((int) u.getID());
           System.out.println(collectionManager.getCollection());
@@ -172,7 +174,8 @@ public class RestServer {
 
           boolean insertToken = userManager.insertToken(u, token);
 
-          byte[] json = gson.toJson(Map.of("token", token)).getBytes();
+          byte[] json = gson.toJson(new Response(200,"Success",token)).getBytes();
+
           if (insertToken) {
             collectionManager.selectByID((int) u.getID());
             ex.getResponseHeaders().add("Content-Type", "application/json");
@@ -518,7 +521,7 @@ public class RestServer {
       }
 
       try (InputStreamReader reader = new InputStreamReader(ex.getRequestBody())) {
-        Integer id = gson.fromJson(reader, Integer.class);
+        ByIdRequest id = gson.fromJson(reader, ByIdRequest.class);
         if (id == null) {
           byte[] err = gson.toJson(Map.of(
             "exitCode", 400,
@@ -540,7 +543,7 @@ public class RestServer {
         }
 
         User user = userManager.getUserByToken(token);
-        Response response = commandManager.getCommands().get("remove_by_id").apply(new String[]{"remove_by_id", id.toString()}, null, user);
+        Response response = commandManager.getCommands().get("remove_by_id").apply(new String[]{"remove_by_id", id.getId().toString()}, null, user);
 
         byte[] json = gson.toJson(response).getBytes();
         ex.getResponseHeaders().add("Content-Type", "application/json");

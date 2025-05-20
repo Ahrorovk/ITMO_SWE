@@ -37,7 +37,7 @@ public class DumpManager {
       stmt.close();
 
       return true;
-    } catch (SQLException e) {
+    } catch (SQLException | InterruptedException e) {
       console.printError(e.toString());
       return false;
     }
