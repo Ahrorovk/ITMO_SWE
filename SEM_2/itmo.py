@@ -1,10 +1,10 @@
 from curl_cffi import requests
 import asyncio
 
-eventId = "282b31e2-2044-4eeb-841e-c2e9a27c3f4c"
-problemId = "195dbf62-a69d-4f9f-8a20-9ce140173198"
+eventId = "8a9572fb-c71b-4fe7-b938-3f7bdd68d478"
+problemId = "0196d853-3b62-750d-9f40-ab9579092bad"
 url = 'https://xn--c1aejlld.xn--p1ai/api/problems/check-answer'
-access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5OWU4NGJkLWQyYjMtNGZkMi05YTkxLWMxNDAwMzM5ODEzMSIsInJvbGUiOiJTdHVkZW50IiwibmJmIjoxNzQ2MTk5OTc2LCJleHAiOjE3NDY4MDQ3NzYsImlhdCI6MTc0NjE5OTk3NiwiaXNzIjoiaHR0cHM6Ly9nZW9saW4ucnUiLCJhdWQiOiJodHRwczovL2dlb2xpbi5ydSJ9.e1KS2G1Gkc1cAYhR3vyjgbL-968G82YW5UzkLjD7BwQ"
+access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5OWU4NGJkLWQyYjMtNGZkMi05YTkxLWMxNDAwMzM5ODEzMSIsInJvbGUiOiJTdHVkZW50IiwibmJmIjoxNzQ3NzcwOTQwLCJleHAiOjE3NDgzNzU3NDAsImlhdCI6MTc0Nzc3MDk0MCwiaXNzIjoiaHR0cHM6Ly9nZW9saW4ucnUiLCJhdWQiOiJodHRwczovL2dlb2xpbi5ydSJ9.iQD6xXxJ3Cw7UdsslzWY2sBJ7FwCrqxWfgakYTcdqq8"
 BATCH_SIZE = 50
 
 headers = {
@@ -89,9 +89,9 @@ async def floats_dots():
 
 
 async def main():
-    await integers()
+    #await integers()
     # await floats()
-    # await floats_dots()
+    await floats_dots()
 
 
 asyncio.run(main())
