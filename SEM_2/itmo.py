@@ -2,7 +2,7 @@ from curl_cffi import requests
 import asyncio
 
 eventId = "8a9572fb-c71b-4fe7-b938-3f7bdd68d478"
-problemId = "0196d853-3b62-750d-9f40-ab9579092bad"
+problemId = "0196d853-3b62-7820-a281-68803e9fdc56"
 url = 'https://xn--c1aejlld.xn--p1ai/api/problems/check-answer'
 access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5OWU4NGJkLWQyYjMtNGZkMi05YTkxLWMxNDAwMzM5ODEzMSIsInJvbGUiOiJTdHVkZW50IiwibmJmIjoxNzQ3NzcwOTQwLCJleHAiOjE3NDgzNzU3NDAsImlhdCI6MTc0Nzc3MDk0MCwiaXNzIjoiaHR0cHM6Ly9nZW9saW4ucnUiLCJhdWQiOiJodHRwczovL2dlb2xpbi5ydSJ9.iQD6xXxJ3Cw7UdsslzWY2sBJ7FwCrqxWfgakYTcdqq8"
 BATCH_SIZE = 50
@@ -49,7 +49,7 @@ async def process_batch(batch):
 
 
 async def floats():
-    total_answers = 30
+    total_answers = 100
     for numerator in range(1, total_answers + 1):
         batch = []
         for denominator in range(2, total_answers + 2):
@@ -89,9 +89,9 @@ async def floats_dots():
 
 
 async def main():
-    #await integers()
-    # await floats()
-    await floats_dots()
+    await integers()
+    #await floats()
+    #await floats_dots()
 
 
 asyncio.run(main())

@@ -1,41 +1,51 @@
 package server.managers;
 
-
-import common.model.LabWork;
+import server.managers.*;
+import common.model.*;
 import server.utility.Console;
 import server.utility.User;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DumpManager {
   private final BDManager bdManager;
   private final Console console;
   private final PropertyManager propertyManager;
-  private final DBUserManager dbUserManager;
-  private final DBLabWorkManager dbLabWorkManager;
 
-  public DumpManager(BDManager bdManager, PropertyManager propertyManager, Console console) {
-    this.console = console;
-    //bdManager.setURL(propertyManager.getProperty("DB_URL", "jdbc:postgresql://127.0.0.1:5432/studs"));
-    //bdManager.setUser(propertyManager.getProperty("DB_USER", "postgres"));
-    //bdManager.setPassword(propertyManager.getProperty("DB_PASSWORD", "pass"));
-    this.bdManager = bdManager;
+  private final DBLabWorkManager labWorkManager;
+  private final DBUserManager    userManager;
+  private final DBEventManager   eventManager;
+  private final DBBookingManager bookingManager;
+
+  public DumpManager(BDManager bdManager,
+                     PropertyManager propertyManager,
+                     Console console) {
+    this.bdManager       = bdManager;
     this.propertyManager = propertyManager;
-    this.dbLabWorkManager = new DBLabWorkManager(bdManager);
-    this.dbUserManager = new DBUserManager(bdManager);
+    this.console         = console;
+
+    // создаём все «DAO-менеджеры»
+    this.labWorkManager = new DBLabWorkManager(bdManager);
+    this.userManager    = new DBUserManager(bdManager);
+    this.eventManager   = new DBEventManager(bdManager);
+    this.bookingManager = new DBBookingManager(bdManager);
   }
 
+  /** Инициализация таблиц по скрипту из properties */
   public boolean initTables() {
     try {
-      if (!bdManager.init()) { System.exit(1); }
-
-      var stmt = bdManager.getStatement(); var i = 0;
-      for(String script: propertyManager.getProperty("DB_CREATE_TABLE_SQL", "").split(";")) { stmt.executeUpdate(script+";"); }
+      if (!bdManager.init()) System.exit(1);
+      var stmt = bdManager.getStatement();
+      for (String script : propertyManager
+        .getProperty("DB_CREATE_TABLE_SQL", "")
+        .split(";")) {
+        if (!script.isBlank()) {
+          stmt.executeUpdate(script + ";");
+        }
+      }
       stmt.close();
-
       return true;
     } catch (SQLException | InterruptedException e) {
       console.printError(e.toString());
@@ -43,54 +53,140 @@ public class DumpManager {
     }
   }
 
-  /* ---------- LAB WORK (коллекция) ---------- */
-
+  // ====== LabWork ======
 
   public LinkedList<DBLabWorkManager.LabWorkAndUserID> selectLabWorks() {
-    return dbLabWorkManager.select();
+    return labWorkManager.select();
   }
-  public LinkedList<DBLabWorkManager.LabWorkAndUserID> selectLabWorksByUserId(Integer userID) {
-    return dbLabWorkManager.selectByUserId(userID);
+  public LinkedList<DBLabWorkManager.LabWorkAndUserID> selectLabWorksByUserId(int userId) {
+    return labWorkManager.selectByUserId(userId);
   }
-
-  public boolean insertLabWork(LabWork lw, long userID) {
-    return dbLabWorkManager.insert(lw, userID);
+  public boolean insertLabWork(LabWork lw, long userId) {
+    return labWorkManager.insert(lw, userId);
   }
-
   public boolean updateLabWork(LabWork lw) {
-    return dbLabWorkManager.update(lw);
+    return labWorkManager.update(lw);
   }
-
   public boolean removeLabWork(long id) {
-    return dbLabWorkManager.remove(id);
+    return labWorkManager.remove(id);
   }
 
-  /* ---------- USERS ---------- */
+  // ====== Users ======
 
-  public LinkedList<User> selectUsers() {
-    return dbUserManager.select();
+  public List<User> listUsers() {
+    try {
+      return userManager.listAll();
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return List.of();
+    }
   }
-
-  public String insertUser(User u) {
-    return dbUserManager.insert(u);
+  public long createUser(String login, String pwdHash, String role) {
+    try {
+      return userManager.createUser(login, pwdHash, role);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return -1;
+    }
   }
-
   public boolean updateUser(User u) {
-    return dbUserManager.update(u);
+    try {
+      return userManager.updateUser(u);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
   }
-  public User getUserByToken(String token){
-    return dbUserManager.getUserByToken(token);
+  public boolean deleteUser(long id) {
+    try {
+      return userManager.deleteUser(id);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
+  }
+  public User findUserByToken(String token) {
+    try {
+      return userManager.getUserByToken(token);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return null;
+    }
+  }
+  public boolean insertToken(User u, String token) {
+    try {
+      return userManager.insertToken(u, token);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
   }
   public boolean deleteToken(String token) {
-    return dbUserManager.deleteToken(token);
+    try {
+      return userManager.deleteToken(token);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
   }
 
-  public boolean insertToken(User user, String token) {
-    return dbUserManager.insertToken(user, token);
+  // ====== Events ======
+
+  /** Все события */
+  public List<Event> selectAllEvents() {
+    try {
+      return eventManager.selectAllEvents();
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return List.of();
+    }
   }
 
-  public LinkedList<String> selectF(String r) { return dbUserManager.selectFunctionality(r); }
-  public boolean insertF(String r, String[] fs) { return dbUserManager.insertFunctionality(r, fs); }
-  public boolean removeF(String r, String[] fs) { return dbUserManager.removeFunctionality(r, fs); }
+  /** Количество оставшихся билетов для события */
+  public int getAvailableTickets(long eventId) {
+    try {
+      return eventManager.getAvailableTickets(eventId);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return 0;
+    }
+  }
+
+  // ====== Bookings ======
+
+  /** Список бронирований пользователя */
+  public List<Booking> getBookingsByUser(long userId) {
+    try {
+      return bookingManager.getBookingsByUser(userId);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return List.of();
+    }
+  }
+
+  /**
+   * Попытка забронировать count билетов для userId на событие eventId.
+   * Возвращает true, если успешно, false — если нет.
+   */
+  public boolean bookTickets(long userId, long eventId, int count) {
+    try {
+      // сначала нужно узнать ticket_id по eventId
+      // (предположим, в tickets.event_id → 1:1 связь)
+      long ticketId = eventManager.findTicketIdByEventId(eventId);
+      return bookingManager.book(userId, ticketId, count);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
+  }
+
+  /** Отменить бронирование по его ID */
+  public boolean cancelBooking(long bookingId) {
+    try {
+      return bookingManager.cancelBooking(bookingId);
+    } catch (SQLException e) {
+      console.printError(e.toString());
+      return false;
+    }
+  }
 }
-

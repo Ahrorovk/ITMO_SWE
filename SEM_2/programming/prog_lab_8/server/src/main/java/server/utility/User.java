@@ -14,16 +14,19 @@ public class User {
 
   }
 
-  public long getID() {
+  public long getId() {
     return id;
   }
 
-  public void setID(long id) {
+  public void setId(long id) {
     this.id = id;
   }
 
   public String getLogin() {
     return login;
+  }
+  public void setLogin(String login) {
+    this.login = login;
   }
 
   public String getPassword() {

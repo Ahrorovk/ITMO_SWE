@@ -54,9 +54,9 @@ public class CollectionManager {
 
   public boolean add(LabWork d, User u) {
     if (d == null || u == null) return false;
-    if (!dumpManager.insertLabWork(d, u.getID())) return false;
+    if (!dumpManager.insertLabWork(d, u.getId())) return false;
     collection.addLast(d);
-    userIdMap.put(d, u.getID());
+    userIdMap.put(d, u.getId());
     update();
     return true;
   }
@@ -65,11 +65,11 @@ public class CollectionManager {
     if (d == null || u == null) return false;
     var oldD = byId(d.getId());
     if (oldD == null) return false;
-    if (!(userManager.canEval(u, "REMOVEALL") || userIdMap.get(oldD) == u.getID())) return false;
+    if (!(userManager.canEval(u, "REMOVEALL") || userIdMap.get(oldD) == u.getId())) return false;
     if (!dumpManager.updateLabWork(d)) return false;
     collection.remove(oldD);
     collection.addLast(d);
-    userIdMap.put(d, u.getID());
+    userIdMap.put(d, u.getId());
     update();
     return true;
   }
@@ -78,7 +78,7 @@ public class CollectionManager {
     if (u == null) return false;
     var d = byId(id);
     if (d == null) return false;
-    if (!(userManager.canEval(u, "REMOVEALL") || userIdMap.get(d) == u.getID())) return false;
+    if (!(userManager.canEval(u, "REMOVEALL") || userIdMap.get(d) == u.getId())) return false;
     if (!dumpManager.removeLabWork(id)) return false;
     collection.remove(d);
     update();
