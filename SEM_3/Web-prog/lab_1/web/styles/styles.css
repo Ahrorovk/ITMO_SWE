@@ -1,0 +1,36 @@
+/* Базовая типографика и наследование */
+body { font-family: Arial, sans-serif; color: #222; }
+.layout { width: 100%; border-collapse: collapse; }
+.layout > tbody > tr > td { padding: 1%; }
+/* Шапка — требование: fantasy, размер и цвет заданы явно */
+.header { font-family: fantasy; font-size: 28px; color: #1e4; padding: 1%
+2%; border: 2px solid #1e4; border-radius: 8px; }
+.header .fio::first-letter { font-size: 130%; } /* псевдоэлемент */
+.header .group { color: #0a0; } /* селектор потомка */
+.header .variant { color: #070; }
+/* Табличная верстка основных блоков */
+.content { width: 100%; border-collapse: separate; border-spacing: 2%; }
+.content .left { width: 40%; vertical-align: top; }
+.content .right { width: 60%; vertical-align: top; }
+/* Форма: отступы инпутов в процентах */
+.form-table { width: 100%; border: 1px solid #ccc; border-radius: 8px; }
+.form-table th { text-align: left; background: #f5f5f5; padding: 1%; }
+.form-table td { padding: 1%; }
+.form-table input[type="text"] { width: 100%; padding: 2%; } /* padding в
+процентах */
+.actions { text-align: right; }
+/* Классы и каскадирование */
+.btn { padding: 1% 2%; border: 1px solid #444; border-radius: 6px; cursor:
+        pointer; background: #fafafa; }
+.btn.primary { background: #def; }
+.btn:hover { filter: brightness(0.97); }
+/* Таблица истории */
+.history { width: 100%; border: 1px solid #ddd; border-radius: 8px; bordercollapse: collapse; }
+.history th, .history td { border: 1px solid #eee; padding: 0.6% 1%; fontsize: 14px; }
+.history thead { background: #f0f6ff; }
+.history tbody tr:nth-child(odd) { background: #fafcff; }
+/* Селекторы элементов и дочерних */
+table > thead > tr > th { text-transform: uppercase; letter-spacing:
+        0.03em; }
+/* Пример селектора класса */
+.note { font-size: 12px; color: #666; margin-top: 1%; }
