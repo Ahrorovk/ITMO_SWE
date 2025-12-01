@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <title>Главная | 3 лаба</title>
+  <h:outputStylesheet name="static/css/v2/normalize.css"/>
+  <h:outputStylesheet name="static/css/v2/style.css"/>
+</h:head>
+
+<h:body>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="credentials">
+        <ul>
+          <li>Веб-программирование 3 @ <a href="variant.html">Вариант 88</a></li>
+          <li>Выполнил <a href="https://my.itmo.ru/persons/412934">Ахроров Кароматуллохон Фирдавсович</a>
+            @ <a href="https://github.com/ahrorovk">github</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <table>
+        <tr>
+          <td>
+            <div class="canvasPlaceholder">
+              <canvas id="graph" width="500" height="500" class="graph"></canvas>
+            </div>
+          </td>
+          <td>
+            <h:form id="form">
+              <!-- X Radio -->
+              <div class="inputPlaceholder">
+                <label for="x" class="fieldName">X:</label><br/>
+                <div id="x" class="radio-group controlPlaceholder">
+                  <h:selectOneRadio value="#{attemptBean.x}">
+                    <f:selectItem itemValue="-4" itemLabel="-4"/>
+                    <f:selectItem itemValue="-3" itemLabel="-3"/>
+                    <f:selectItem itemValue="-2" itemLabel="-2"/>
+                    <f:selectItem itemValue="-1" itemLabel="-1"/>
+                    <f:selectItem itemValue="0" itemLabel="0"/>
+                    <f:selectItem itemValue="1" itemLabel="1"/>
+                    <f:selectItem itemValue="2" itemLabel="2"/>
+                    <f:selectItem itemValue="3" itemLabel="3"/>
+                    <f:selectItem itemValue="4" itemLabel="4"/>
+                  </h:selectOneRadio>
+                </div>
+              </div>
+
+              <!-- Y Text Input -->
+              <div class="inputPlaceholder">
+                <label for="y" class="fieldName">Y:</label><br/>
+                <h:inputText id="y" value="#{attemptBean.y}" class="controlPlaceholder">
+                  <f:validateDoubleRange minimum="-3" maximum="3"/>
+                </h:inputText>
+                <p:message for="y" display="text"/>
+              </div>
+
+              <!-- R Radio Buttons -->
+              <div class="inputPlaceholder">
+                <label for="r" class="fieldName">R:</label><br/>
+                <div id="r" class="radio-group controlPlaceholder">
+                  <h:selectOneRadio value="#{attemptBean.r}">
+                    <f:selectItem itemValue="1" itemLabel="1"/>
+                    <f:selectItem itemValue="1.5" itemLabel="1.5"/>
+                    <f:selectItem itemValue="2" itemLabel="2"/>
+                    <f:selectItem itemValue="2.5" itemLabel="2.5"/>
+                    <f:selectItem itemValue="3" itemLabel="3"/>
+                  </h:selectOneRadio>
+                </div>
+              </div>
+
+              <h:commandButton ajax="true" id="submit" value="Отправить"
+                               action="#{resultBean.addResult(attemptBean)}" styleClass="btn-submit"/>
+              <h:commandButton ajax="true" id="reset" value="Очистить"
+                               action="#{resultBean.clear()}" styleClass="btn-submit"/>
+            </h:form>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Results Table -->
+      <div id="results">
+        <h2><strong>~> Результаты<span class="cursor">_</span></strong></h2>
+        <p:dataTable id="table" value="#{attemptsList}" var="attempt" paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     rows="10" lazy="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                     style="width: 750px" styleClass="table">
+          <p:column headerText="X">
+            <h:outputText value="#{attempt.x}">
+              <f:convertNumber type="number"
+                               maxFractionDigits="3"
+                               groupingUsed="false"/>
+            </h:outputText>
+          </p:column>
+          <p:column headerText="Y">
+            <h:outputText value="#{attempt.y}">
+              <f:convertNumber type="number"
+                               maxFractionDigits="3"
+                               groupingUsed="false"/>
+            </h:outputText>
+          </p:column>
+          <p:column headerText="R">
+            <h:outputText value="#{attempt.r}"/>
+          </p:column>
+          <p:column headerText="Результат" styleClass="#{attempt.result ? 'result-yes' : 'result-no'}">
+            <h:outputText value="#{attempt.result ? 'Попал' : 'Не попал' }"/>
+          </p:column>
+          <p:column headerText="Отправлено">
+            <h:outputText value="#{attempt.time}" >
+              <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+            </h:outputText>
+          </p:column>
+          <p:column headerText="Время выполнения">
+            <h:outputText value="#{attempt.bench}"/>
+          </p:column>
+        </p:dataTable>
+      </div>
+    </main>
+  </div>
+
+  <h:outputScript library="static" name="js/v2/net/fetch.js"/>
+  <h:outputScript library="static" name="js/v2/plot/plot.js"/>
+  <h:outputScript library="static" name="js/v2/plot/update.js"/>
+  <h:outputScript>
+    // Initialize points from backend when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+    // Wait for table to load, then draw points
+    setTimeout(function() {
+    if (typeof reloadPointsFromBackend === 'function') {
+    reloadPointsFromBackend();
+    }
+    }, 1500);
+    });
+
+    // Also update points when table is updated via AJAX
+    $(document).on('ajaxComplete', function() {
+    setTimeout(function() {
+    if (typeof filterPointsByCurrentR === 'function') {
+    filterPointsByCurrentR();
+    }
+    }, 300);
+    });
+  </h:outputScript>
+</h:body>
+</html>

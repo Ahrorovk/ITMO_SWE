@@ -1,0 +1,1134 @@
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 264ms
+1 actionable task: 1 executed
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 3s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 252ms
+1 actionable task: 1 executed
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 2s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 250ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 965ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 291ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 814ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 242ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 845ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 248ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 871ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 308ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 836ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 249ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 838ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 295ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 806ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 241ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 840ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 247ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 835ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 239ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 803ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 241ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 804ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 299ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 822ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 349ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 801ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 306ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 804ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 265ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 817ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 242ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 809ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 235ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 246ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 845ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 245ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 6s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 642ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 4s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 850ms
+1 actionable task: 1 executed
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 1 executed, 2 up-to-date
+> Task :clean
+
+BUILD SUCCESSFUL in 260ms
+1 actionable task: 1 executed
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :war
+
+BUILD SUCCESSFUL in 833ms
+3 actionable tasks: 1 executed, 2 up-to-date
+> Task :clean
+
+BUILD SUCCESSFUL in 258ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 271ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 250ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 344ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 234ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 327ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 251ms
+1 actionable task: 1 executed
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 241ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 235ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 235ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 232ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 274ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 259ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 237ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 242ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 292ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 239ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 244ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 234ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 242ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 243ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 249ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 246ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 277ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 234ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 394ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 234ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 256ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 241ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 262ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 417ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 266ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 244ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 497ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 238ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 405ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 405ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 254ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 233ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 238ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 238ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 288ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 448ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 244ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 350ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 282ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 331ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 233ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 250ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 239ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 235ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 243ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 278ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 235ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 242ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 989ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 231ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 241ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 989ms
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 237ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 230ms
+1 actionable task: 1 executed
+
+> Task :compileJava
+Note: /Users/ahrorovk/ITMO/3rd semester/web/web3/web3/src/main/java/com/ahrorovk/database/service/ResultService.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :war
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+> Task :clean
+
+BUILD SUCCESSFUL in 268ms
+1 actionable task: 1 executed
