@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Ахроров Кароматуллохон Фирдавсович P3210</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root{
+            --bg-scrim: rgba(0,0,0,.45);
+            --panel: rgba(255,255,255,.95);
+            --text: #1f2937;
+            --muted:#6b7280;
+            --border:#e5e7eb;
+            --primary:#2563eb;
+            --primary-600:#1d4ed8;
+            --ok:#117a00;
+            --err:#b00020;
+            --shadow:0 1px 2px rgba(0,0,0,.15);
+            --radius:12px;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+            color:var(--text);
+            background:
+                    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                    url('/static/hedgehog.jpg')
+        }
+        .wrap{max-width:1100px;margin:36px auto;padding:0 16px}
+        header .title{
+            display:inline-block;background:var(--panel);padding:10px 14px;border-radius:10px;
+            box-shadow:var(--shadow);border:1px solid var(--border)
+        }
+        .grid{
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            gap:18px;
+        }
+        @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+        .card{
+            background:var(--panel);
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            box-shadow:var(--shadow);
+            padding:16px;
+            backdrop-filter: blur(2px);
+        }
+
+        .field{margin-bottom:14px}
+        .label{display:block;font-weight:600;margin-bottom:6px}
+        .hint{color:var(--muted);font-size:.9rem;margin-top:4px}
+        .x-buttons{display:grid;grid-template-columns:repeat(9,1fr);gap:6px}
+        .btn{
+            display:inline-flex;align-items:center;justify-content:center;
+            padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:#fff;
+            cursor:pointer;user-select:none;transition:transform .02s ease,background .2s ease,border-color .2s ease;
+        }
+        .btn:hover{background:#fafafa}.btn:active{transform:translateY(1px)}
+        .btn[aria-pressed="true"]{background:#eef2ff;border-color:#c7d2fe;font-weight:600}
+        .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        input[type="number"],input[type="text"]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;font:inherit}
+        .actions{display:flex;gap:10px;align-items:center;margin-top:10px}
+        .submit{background:var(--primary);border:1px solid var(--primary);color:#fff;padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer}
+        .submit:hover{background:var(--primary-600);border-color:var(--primary-600)}
+        .ghost{background:#fff;border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;cursor:pointer}
+        .msg{margin-top:8px;font-size:.95rem}.msg.ok{color:var(--ok)}.msg.err{color:var(--err)}
+
+
+        .graph-card img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow);background:#fff}
+        .history-panel{
+            height:300px;overflow-y:auto;overflow-x:hidden;border:1px solid var(--border);
+            border-radius:8px;background:#fff;box-shadow:var(--shadow);padding:0;overscroll-behavior:contain
+        }
+        .history-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px}
+        .history-table thead th,.history-table td{padding:10px 12px;border-bottom:1px solid #eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .history-table thead th{position:sticky;top:0;background:#f9fafb;z-index:1;border-bottom:1px solid var(--border)}
+        .history-table tbody tr:nth-child(even){background:#fcfcfc}
+        .tag-yes{color:var(--ok);font-weight:700}.tag-no{color:var(--err);font-weight:700}
+        .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
+        :root{
+            --panel: rgba(255,250,244,.96);
+            --border:#e7dccb;
+            --text:#2c2a28;
+            --muted:#7b6f62;
+            --primary:#8f5f19;
+            --primary-600:#744c14;
+            --ok:#146356;
+            --err:#8a1c1c;
+        }
+
+        body{ font-family: "Trebuchet MS","Gill Sans","Segoe UI",Arial,sans-serif; }
+        h1,h2,h3{ font-family: Georgia,"Times New Roman",Times,serif; letter-spacing:.2px; }
+
+        .card{
+            background:var(--panel);
+            border-color:var(--border);
+            box-shadow: 0 1px 0 rgba(0,0,0,.12), 0 12px 24px -12px rgba(0,0,0,.25);
+        }
+
+        .submit{ background:var(--primary); border-color:var(--primary); }
+        .submit:hover{ background:var(--primary-600); border-color:var(--primary-600); }
+        .btn{ border-color:#d9cdb7; background:#fffdfa; }
+        input[type], input[type="text"], input[type="number"], select{
+            background:#fffdfa; border-color:#dfd2bf;
+        }
+        input:focus, select:focus{
+            outline:2px dashed var(--primary); outline-offset:2px; box-shadow:none;
+        }
+
+        .history-table thead th{ background:#fff6e8; }
+        .history-table td{ border-bottom:1px dashed #e7dccb; }
+        .tag-yes{ color:var(--ok); } .tag-no{ color:var(--err); }
+
+        header .title{ background:rgba(255,248,235,.9); border-color:#eadfcd; }
+
+        .history-panel::-webkit-scrollbar{ width:10px; }
+        .history-panel::-webkit-scrollbar-thumb{
+            background:#cdbda3; border-radius:6px; border:2px solid #fffdfa;
+        }
+        .history-panel{ scrollbar-color:#cdbda3 #fffdfa; scrollbar-width:thin; } /* Firefox */
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <h1 class="title">Ахроров Кароматуллохон Фирдавсович P3210</h1>
+    </header>
+
+    <div class="grid">
+
+        <section class="card" aria-labelledby="form-title">
+            <h2 id="form-title" style="margin:0 0 10px;">Выбор параметров</h2>
+            <form id="shotForm" autocomplete="off" novalidate>
+
+                <div class="field">
+                    <span class="label">X</span>
+                    <div class="x-buttons" id="xButtons" role="group" aria-label="Выбор X">
+                        <button type="button" class="btn" data-x="-2">-2</button>
+                        <button type="button" class="btn" data-x="-1.5">-1.5</button>
+                        <button type="button" class="btn" data-x="-1">-1</button>
+                        <button type="button" class="btn" data-x="-0.5">-0.5</button>
+                        <button type="button" class="btn" data-x="0">0</button>
+                        <button type="button" class="btn" data-x="0.5">0.5</button>
+                        <button type="button" class="btn" data-x="1">1</button>
+                        <button type="button" class="btn" data-x="1.5">1.5</button>
+                        <button type="button" class="btn" data-x="2">2</button>
+                    </div>
+                    <input type="hidden" name="x" id="xHidden" />
+                </div>
+
+
+                <div class="row">
+                    <div class="field">
+                        <label class="label" for="yInput">Y (−5 … 5)</label>
+                        <input id="yInput" name="y" type="number" step="any" inputmode="decimal" />
+                    </div>
+                    <div class="field">
+                        <label class="label" for="rInput">R (2 … 5)</label>
+                        <input id="rInput" name="r" type="number" step="0.5" min="2" max="5" list="r-list" />
+                        <datalist id="r-list">
+                            <option value="2"></option><option value="2.5"></option><option value="3"></option>
+                            <option value="3.5"></option><option value="4"></option><option value="4.5"></option><option value="5"></option>
+                        </datalist>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="submit">Отправить</button>
+                    <button type="button" class="ghost" id="reloadBtn" title="Обновить историю">Обновить историю</button>
+                </div>
+                <div id="msg" class="msg" role="status" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <div>
+            <section class="card graph-card" aria-labelledby="graph-title" style="margin-bottom:18px;">
+                <h2 id="graph-title" style="margin:0 0 10px;">График области</h2>
+                <img alt="Область попадания для R, квадранты и подписи осей"
+                     src="/static/graph.png" />
+            </section>
+            <section class="card" aria-labelledby="history-title">
+                <h2 id="history-title" style="margin:0 0 10px;">История</h2>
+                <div class="history-panel" id="historyPanel" role="region" aria-labelledby="history-title">
+                    <table class="history-table" aria-describedby="history-caption">
+                        <caption id="history-caption" class="sr-only">Отправленные точки и результаты</caption>
+                        <thead>
+                        <tr>
+                            <th style="width:34%;">Время</th>
+                            <th style="width:10%;">X</th>
+                            <th style="width:10%;">Y</th>
+                            <th style="width:10%;">R</th>
+                            <th style="width:12%;">Попадание</th>
+                            <th style="width:24%;">Время (мс)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                        <tr><td colspan="6" style="text-align:center;color:#666;">Загрузка…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    const FCGI_URL = '/fcgi-bin/app.jar';
+
+    function $(id){ return document.getElementById(id); }
+
+    function setMsg(text, cls){
+        const el = $('msg');
+        el.textContent = text || '';
+        el.className = 'msg' + (cls ? ' ' + cls : '');
+    }
+
+    function initXButtons(){
+        const hidden = $('xHidden');
+        const btns = document.querySelectorAll('#xButtons .btn');
+        btns.forEach(btn => {
+            btn.setAttribute('aria-pressed', 'false');
+            btn.addEventListener('click', () => {
+                const pressed = btn.getAttribute('aria-pressed') === 'true';
+                btns.forEach(b => b.setAttribute('aria-pressed','false'));
+                if (!pressed) {
+                    btn.setAttribute('aria-pressed','true');
+                    hidden.value = btn.getAttribute('data-x');
+                } else {
+                    hidden.value = '';
+                }
+            });
+        });
+    }
+
+    function validate(){
+        const x = $('xHidden').value;
+        const yv = $('yInput').value.trim().replace(',', '.');
+        const rv = $('rInput').value.trim().replace(',', '.');
+
+        if (!x) return { ok:false, msg:'Выберите X.' };
+
+
+        const y = Number(yv); if (!isFinite(y)) return { ok:false, msg:'Y должно быть числом.' };
+        if (y < -5 || y > 5) return { ok:false, msg:'Y должно быть в диапазоне [-5; 5].' };
+
+        const r = Number(rv); if (!isFinite(r)) return { ok:false, msg:'R должно быть числом.' };
+        if (r < 2 || r > 5) return { ok:false, msg:'R должно быть в диапазоне [2; 5].' };
+
+        const allowed = [-2,-1.5,-1,-0.5,0,0.5,1,1.5,2];
+        if (!allowed.includes(Number(x))) return { ok:false, msg:'X должен быть одним из разрешённых значений.' };
+
+        return { ok:true, x:x, y:y, r:r };
+    }
+
+    function renderHistory(list){
+        const tb = $('historyBody');
+        if (!Array.isArray(list) || list.length === 0) {
+            tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#666;">Записей пока нет</td></tr>';
+            return;
+        }
+        const rows = list.slice().reverse().map(it => {
+            const ms = (it.execTimeNs != null) ? (it.execTimeNs / 1e6).toFixed(2) : '';
+            return '<tr>'
+                + '<td>' + (it.time || '') + '</td>'
+                + '<td>' + it.x + '</td>'
+                + '<td>' + it.y + '</td>'
+                + '<td>' + it.r + '</td>'
+                + '<td>' + (it.hit ? '<span class="tag-yes">Да</span>' : '<span class="tag-no">Нет</span>') + '</td>'
+                + '<td>' + ms + '</td>'
+                + '</tr>';
+        }).join('');
+        tb.innerHTML = rows;
+    }
+
+    function loadHistory(){
+        fetch(FCGI_URL + '?history=1', { cache:'no-store' })
+            .then(r => r.json())
+            .then(data => renderHistory(data.history))
+            .catch(() => renderHistory([]));
+    }
+
+    function onSubmit(e){
+        e.preventDefault();
+        setMsg('', '');
+        const v = validate();
+        if (!v.ok) { setMsg(v.msg, 'err'); return; }
+
+        const params = new URLSearchParams();
+        params.set('x', v.x);
+        params.set('y', String(v.y));
+        params.set('r', String(v.r));
+
+        fetch(FCGI_URL, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+            body: params.toString(),
+            cache: 'no-store'
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data && data.ok) setMsg('Успешно.', 'ok');
+                else if (data && data.error) setMsg(data.error, 'err');
+                else setMsg('Неожиданный ответ сервера.', 'err');
+
+                if (data && Array.isArray(data.history)) renderHistory(data.history);
+                else loadHistory();
+            })
+            .catch(() => setMsg('Сетевая ошибка. Проверьте туннель/сервер.', 'err'));
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+        initXButtons();
+        $('shotForm').addEventListener('submit', onSubmit);
+        $('reloadBtn').addEventListener('click', loadHistory);
+        loadHistory();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+services:
+  # Наше приложение
+  fcgi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+    networks:
+      backend:
+
+  # Сам веб-сервер
+  httpd:
+    image: "httpd:2.4.62"
+    ports:
+      - "8080:80"
+    volumes:
+      - "./httpd.conf:/usr/local/apache2/conf/httpd.conf"
+      - "./web:/var/www"
+    networks:
+      backend:
+    depends_on:
+      - fcgi
+networks:
+  backend:

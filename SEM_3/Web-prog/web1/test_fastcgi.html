@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastCGI Test</title>
+</head>
+<body>
+    <h1>FastCGI Test</h1>
+    <button onclick="testFastCGI()">Test FastCGI</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testFastCGI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('/calculate?x=1&y=2&r=2');
+                const data = await response.text();
+                resultDiv.innerHTML = `<pre>Status: ${response.status}\nResponse: ${data}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<pre>Error: ${error.message}</pre>`;
+            }
+        }
+    </script>
+</body>
+</html>
+
