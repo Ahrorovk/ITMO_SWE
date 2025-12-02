@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <title>Lab 3</title>
+  <h:outputStylesheet name="static/css/v2/normalize.css"/>
+  <h:outputStylesheet name="static/css/v2/style.css"/>
+  <meta http-equiv="refresh" content="8"/>
+</h:head>
+
+<h:body>
+  <header>
+    <h1>Ахроров Кароматуллохон Фирдавсович</h1>
+    <h2>P3210, Вариант 88</h2>
+    <h2>Дата: #{timeBean.currentDateTime}</h2>
+    <h:form>
+      <h:commandLink value="Перейти к проверке точки"
+                     action="app.xhtml"/>
+    </h:form>
+  </header>
+
+  <script type="text/javascript">
+    function updateDateTime() {
+      document.referrer
+    }
+
+    setInterval(updateDateTime, 1000);
+  </script>
+</h:body>
+
+
+
+<h:outputScript library="static" name="js/v2/net/fetch.js"/>
+<h:outputScript library="static" name="js/v2/plot/plot.js"/>
+<h:outputScript library="static" name="js/v2/plot/update.js"/>
+</html>
