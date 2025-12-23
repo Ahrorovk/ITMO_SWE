@@ -29,6 +29,7 @@ secrets
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+/src/main/resources/hibernate.cfg.xml
 
 ### NetBeans ###
 /nbproject/private/
