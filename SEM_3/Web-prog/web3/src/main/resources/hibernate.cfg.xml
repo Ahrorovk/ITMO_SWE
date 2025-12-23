@@ -2,11 +2,6 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- JDBC Database connection settings -->
-<!--        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>-->
-<!--        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/web3</property>-->
-<!--        <property name="hibernate.connection.username">postgres</property>-->
-<!--        <property name="hibernate.connection.password">HackMe228</property>-->
 
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://helios.cs.ifmo.ru:5432/studs</property>

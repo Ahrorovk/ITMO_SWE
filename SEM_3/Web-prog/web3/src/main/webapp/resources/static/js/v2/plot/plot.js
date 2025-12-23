@@ -1,7 +1,3 @@
-/**
- * Отвечает за отрисовку графика, осей и точек.
- */
-
 let canvas = document.getElementById('graph');
 let ctx = canvas.getContext('2d');
 
@@ -160,40 +156,57 @@ function drawLabels(R) {
  * Парсинг таблицы результатов и отрисовка точек
  */
 function loadPointsFromBackend() {
-    let rows = document.querySelectorAll('#form\\:table_data tr, .ui-datatable-data tr, table[id*="table"] tbody tr');
-
-    if (rows.length === 0) {
-        const table = document.querySelector('table.table, [id*="table"]');
+    // Таблица находится вне формы, поэтому ищем по ID таблицы напрямую
+    let tbodyElement = document.getElementById('table_data');
+    
+    // Если не нашли, пробуем найти через селектор PrimeFaces
+    if (!tbodyElement) {
+        const table = document.getElementById('table');
         if (table) {
-            rows = table.querySelectorAll('tbody tr, tr[data-ri]');
+            // PrimeFaces создает tbody с классом ui-datatable-data
+            tbodyElement = table.querySelector('tbody.ui-datatable-data') || table.querySelector('tbody');
         }
     }
+    
+    // Если все еще не нашли, пробуем найти через класс
+    if (!tbodyElement) {
+        tbodyElement = document.querySelector('table[id*="table"] tbody') || 
+                       document.querySelector('.ui-datatable-data');
+    }
 
+    if (!tbodyElement) {
+        console.warn("Table tbody not found. Cannot load points.");
+        return [];
+    }
+
+    // Ищем только прямые строки в tbody
+    const rows = tbodyElement.querySelectorAll('tr');
     const pointsData = [];
 
     rows.forEach(row => {
+        // Пропускаем строки заголовков или пустые сообщения
         if (row.classList.contains('ui-widget-header') || row.classList.contains('ui-datatable-empty-message')) {
             return;
         }
 
         const cells = row.querySelectorAll('td');
+        // У вас 6 колонок: X, Y, R, Результат, Время, Бенчмарк
         if (cells.length >= 4) {
-            // Порядок: X, Y, R, Результат
+
             const xText = cells[0].textContent.trim();
             const yText = cells[1].textContent.trim();
             const rText = cells[2].textContent.trim();
             const resultText = cells[3].textContent.trim().toLowerCase();
 
-            const x = parseFloat(xText);
-            const y = parseFloat(yText);
-            const r = parseFloat(rText);
+            // ВАЖНО: JSF f:convertNumber выводит запятую в некоторых локалях. Заменяем на точку.
+            const x = parseFloat(xText.replace(',', '.'));
+            const y = parseFloat(yText.replace(',', '.'));
+            const r = parseFloat(rText.replace(',', '.'));
 
             if (!isNaN(x) && !isNaN(y) && !isNaN(r)) {
-                // Определяем попадание по тексту из таблицы
+                // Определяем попадание по тексту из таблицы (должно соответствовать 'Попал' / 'Не попал')
                 const normalizedResult = resultText.replace(/\s+/g, ' ').trim();
-                const hitTokens = ['попал', 'hit', 'true', 'да', 'yes', '1'];
-
-                const isHit = hitTokens.includes(normalizedResult);
+                const isHit = normalizedResult === 'попал';
 
                 pointsData.push({ x, y, r, isHit });
             }
@@ -202,16 +215,22 @@ function loadPointsFromBackend() {
 
     return pointsData;
 }
-
 /**
  * Рисует ВСЕ точки из базы данных
- * Каждая точка масштабируется по своему собственному R
+ * Каждая точка масштабируется по своему собственному R (p.r)
+ * Это означает, что при изменении текущего R точки будут сжиматься/разжиматься
+ * на основе их исходного R, а не текущего выбранного R
  */
 function drawPoints(currentR) {
     const points = loadPointsFromBackend();
+    console.log('Загружено точек для отрисовки:', points.length, 'текущий R:', currentR);
 
     points.forEach(p => {
-        drawSinglePoint(p.x, p.y, p.isHit, p.r);
+        // ВАЖНО: Используем R каждой точки (p.r) для масштабирования
+        // Это позволяет точкам сохранять их относительное положение
+        // независимо от текущего выбранного R
+        const pointR = p.r || currentR;
+        drawSinglePoint(p.x, p.y, p.isHit, pointR);
     });
 }
 
@@ -224,11 +243,16 @@ function drawSinglePoint(x, y, isHit, R) {
     const pixelX = centerX + x * config.radius / R;
     const pixelY = centerY - y * config.radius / R;
 
+    // Используем зеленый цвет для попадания, красный для промаха
     ctx.fillStyle = isHit ? config.colors.hit : config.colors.miss;
     ctx.beginPath();
     ctx.arc(pixelX, pixelY, 5, 0, 2 * Math.PI);
     ctx.fill();
+
 }
+
+// Экспортируем функцию для использования в других местах
+window.drawSinglePoint = drawSinglePoint;
 
 function getCurrentR() {
     const rRadios = document.querySelectorAll('input[type="radio"]:checked');
@@ -269,8 +293,19 @@ function getCurrentR() {
 }
 
 window.filterPointsByCurrentR = function() {
-    const r = getCurrentR();
-    drawPlot(r);
+    const currentR = getCurrentR();
+    clearAllPoints();
+
+    // ИСПРАВЛЕНО: используйте полный ID 'form:table'
+    // или более универсальный селектор: document.getElementById(PrimeFaces.escapeClientId('form:table'));
+    const table = document.getElementById('form:table');
+    if (!table) return;
+
+    // Также проверьте селектор строк. В PrimeFaces dataTable тело таблицы - это 'tbody'.
+    // Часто используют .ui-datatable-data для выбора тела таблицы.
+    // Если ваша таблица имеет класс 'ui-datatable'
+    const rows = table.querySelector('tbody').querySelectorAll('tr');
+    drawPlot(currentR);
 };
 
 window.resizeCanvas = function() {
@@ -291,8 +326,9 @@ window.refreshPointsOnly = function() {
     if (!canvas || !ctx) return;
     const currentR = getCurrentR();
     if (currentR > 0) {
-        const rForShapes = lastRForShapes || currentR;
-        drawPlot(rForShapes, false);
+        // Перерисовываем график, но не фигуру (forceRedrawShapes = false)
+        // Это перерисует оси и точки, но сохранит фигуру
+        drawPlot(currentR, false);
     }
 }
 
@@ -303,25 +339,84 @@ function initializePlotSystem() {
         initGraph();
     }
 
+    // Обработка PrimeFaces AJAX запросов
     if (typeof PrimeFaces !== 'undefined') {
-        PrimeFaces.ajax.addOnComplete(function() {
+        PrimeFaces.ajax.addOnComplete(function(xhr, status, args) {
             setTimeout(function() {
+                console.log('AJAX запрос завершен, обновляем график и таблицу...', status);
                 const currentR = getCurrentR();
                 if (currentR > 0) {
-                    if (lastRForShapes !== null && lastRForShapes !== currentR) {
-                        drawPlot(currentR, true);
-                    } else if (lastRForShapes === null) {
-                        drawPlot(currentR, true);
+                    // Всегда перерисовываем точки после AJAX запроса
+                    if (window.refreshPointsOnly) {
+                        window.refreshPointsOnly();
                     } else {
-                        if (window.refreshPointsOnly) {
-                            window.refreshPointsOnly();
-                        }
+                        // Fallback - полная перерисовка
+                        drawPlot(currentR, false);
+                    }
+                }
+            }, 150);
+        });
+        
+        // Также обрабатываем успешное завершение AJAX
+        PrimeFaces.ajax.addOnSuccess(function(data, status, xhr) {
+            setTimeout(function() {
+                console.log('AJAX запрос успешно завершен, обновляем график...');
+                const currentR = getCurrentR();
+                if (currentR > 0) {
+                    if (window.refreshPointsOnly) {
+                        window.refreshPointsOnly();
+                    } else {
+                        drawPlot(currentR, false);
                     }
                 }
             }, 100);
         });
     }
 
+    // Обработка стандартных JSF AJAX запросов (f:ajax)
+    // Слушаем события обновления DOM после AJAX
+    function setupTableObserver() {
+        const tableContainer = document.getElementById('results');
+        if (tableContainer) {
+            const ajaxObserver = new MutationObserver(function(mutations) {
+                let shouldUpdate = false;
+                mutations.forEach(function(mutation) {
+                    // Проверяем любые изменения в таблице (добавление, удаление, изменение)
+                    if (mutation.type === 'childList') {
+                        if (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0) {
+                            shouldUpdate = true;
+                        }
+                    }
+                    // Также проверяем изменения атрибутов (например, обновление данных)
+                    if (mutation.type === 'attributes') {
+                        shouldUpdate = true;
+                    }
+                });
+                if (shouldUpdate) {
+                    console.log('Обнаружены изменения в таблице, обновляем график...');
+                    setTimeout(function() {
+                        const currentR = getCurrentR();
+                        if (currentR > 0) {
+                            if (window.refreshPointsOnly) {
+                                window.refreshPointsOnly();
+                            } else {
+                                drawPlot(currentR, false);
+                            }
+                        }
+                    }, 150);
+                }
+            });
+
+            ajaxObserver.observe(tableContainer, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class', 'style']
+            });
+        }
+    }
+    
+    // Вызываем setupTableObserver только один раз
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', setupTableObserver);
     } else {
@@ -329,7 +424,9 @@ function initializePlotSystem() {
     }
 }
 
-function setupTableObserver() {
+// Старая функция setupTableObserver заменена новой внутри initializePlotSystem
+// Оставляем для обратной совместимости, но она не используется
+function setupTableObserverOld() {
     const tableObserver = new MutationObserver(function(mutations) {
         const currentR = getCurrentR();
         if (currentR > 0) {

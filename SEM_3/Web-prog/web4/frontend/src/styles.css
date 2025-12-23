@@ -1,0 +1,232 @@
+/* PrimeNG Theme */
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeicons/primeicons.css';
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+}
+
+/* PrimeNG Card enhancements */
+::ng-deep .p-card {
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+::ng-deep .p-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+::ng-deep .p-card .p-card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 32px 28px;
+}
+
+/* Additional padding for forms inside cards */
+::ng-deep .p-card form {
+  padding: 0;
+  margin: 0;
+}
+
+::ng-deep .p-card .form-group:first-child {
+  margin-top: 0;
+}
+
+/* PrimeNG Button enhancements */
+::ng-deep .p-button {
+  border-radius: 10px !important;
+  padding: 14px 28px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12) !important;
+  letter-spacing: 0.3px;
+  font-size: 1rem !important;
+}
+
+::ng-deep .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18) !important;
+}
+
+::ng-deep .p-button:active {
+  transform: translateY(0);
+}
+
+::ng-deep .p-button .p-button-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* PrimeNG Input enhancements */
+::ng-deep .p-inputtext,
+::ng-deep .p-password input {
+  border-radius: 8px !important;
+  border: 2px solid #e0e0e0 !important;
+  padding: 12px 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .p-inputtext:focus,
+::ng-deep .p-password input:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+/* PrimeNG Table enhancements */
+::ng-deep .p-datatable {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  padding: 18px 16px;
+  border: none;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #f8f9ff !important;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* PrimeNG Paginator enhancements */
+::ng-deep .p-paginator {
+  background: #ffffff;
+  border-radius: 0 0 12px 12px;
+  padding: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+::ng-deep .p-paginator .p-paginator-page {
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+::ng-deep .p-paginator .p-paginator-page:hover {
+  background: #f8f9ff;
+}
+
+::ng-deep .p-paginator .p-paginator-page.p-highlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* PrimeNG Message enhancements */
+::ng-deep .p-message {
+  border-radius: 8px !important;
+  margin-bottom: 16px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 681px) {
+  /* Mobile */
+}
+
+@media (min-width: 682px) and (max-width: 1208px) {
+  /* Tablet */
+}
+
+@media (min-width: 1209px) {
+  /* Desktop */
+}
+
+

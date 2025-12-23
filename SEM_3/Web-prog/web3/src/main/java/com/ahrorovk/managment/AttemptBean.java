@@ -9,14 +9,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 
-/**
- * Bean for getting point coordinates and checking if it is in the area
- *
- * @author ahrorovk
- * @version 1.0
- * @since 1.0
- */
-
 @Named
 @SessionScoped
 @FieldDefaults(level = AccessLevel.PRIVATE)

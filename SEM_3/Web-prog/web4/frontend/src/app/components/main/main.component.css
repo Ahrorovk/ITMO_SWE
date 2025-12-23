@@ -1,0 +1,318 @@
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 24px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.user-info {
+  animation: slideIn 0.5s ease-out;
+}
+
+.user-info h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.5px;
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.95;
+  font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .header .p-button {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(10px);
+  padding: 12px 24px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .header .p-button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+::ng-deep .header .p-button .p-button-icon {
+  margin-right: 8px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px 20px;
+  background: transparent;
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.canvas-form-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.canvas-card,
+.form-card {
+  height: 100%;
+}
+
+.form-card ::ng-deep .p-card-body {
+  padding: 36px 32px !important;
+}
+
+.form-card form {
+  padding: 0;
+  margin: 0;
+}
+
+.canvas-card ::ng-deep .p-card-body {
+  padding: 0 !important;
+}
+
+.card-header {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  min-height: 400px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  border-radius: 12px;
+  margin: 16px;
+}
+
+.graph-canvas {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: crosshair;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.graph-canvas:hover {
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+  align-items: center;
+  width: 100%;
+}
+
+.form-actions ::ng-deep .p-button {
+  min-width: 200px;
+  width: 100%;
+  max-width: 280px;
+  padding: 16px 32px !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-actions ::ng-deep .p-button:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.form-actions ::ng-deep .p-button:active {
+  transform: translateY(-1px) !important;
+}
+
+.form-actions ::ng-deep .p-button .p-button-icon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.error-message {
+  margin-bottom: 20px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.results-card {
+  margin-top: 24px;
+  animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.results-card ::ng-deep .p-card-body {
+  padding: 24px;
+}
+
+.results-card ::ng-deep .p-datatable-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.result-yes {
+  color: #10b981;
+  font-weight: 700;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border-radius: 8px;
+  display: inline-block;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
+}
+
+.result-no {
+  color: #ef4444;
+  font-weight: 700;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+  border-radius: 8px;
+  display: inline-block;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+}
+
+/* Mobile */
+@media (max-width: 681px) {
+  .header {
+    padding: 20px 15px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .user-info h1 {
+    font-size: 1.4rem;
+  }
+
+  .user-info h2 {
+    font-size: 0.95rem;
+  }
+
+  .canvas-form-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .canvas-container {
+    min-height: 300px;
+    padding: 16px;
+    margin: 12px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .card-header {
+    font-size: 1.1rem;
+    padding: 16px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 682px) and (max-width: 1208px) {
+  .canvas-form-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .canvas-container {
+    min-height: 350px;
+  }
+
+  .main-content {
+    padding: 24px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1209px) {
+  .canvas-form-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .canvas-container {
+    min-height: 450px;
+  }
+
+  .main-content {
+    padding: 40px 30px;
+  }
+
+  .user-info h1 {
+    font-size: 2rem;
+  }
+
+  .user-info h2 {
+    font-size: 1.2rem;
+  }
+}
+
+

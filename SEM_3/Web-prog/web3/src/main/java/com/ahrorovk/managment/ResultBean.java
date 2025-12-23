@@ -56,6 +56,11 @@ public class ResultBean implements Serializable {
                 .bench(executionTime)
                 .build();
         resultService.save(result);
+        
+        // Обновляем lazy модель, чтобы таблица обновилась
+        if (lazyModel != null) {
+            lazyModel.setRowCount(resultService.count());
+        }
     }
 
     public void clear() {

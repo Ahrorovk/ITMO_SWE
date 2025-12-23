@@ -75,10 +75,16 @@
                 </div>
               </div>
 
-              <h:commandButton ajax="true" id="submit" value="Отправить"
-                               action="#{resultBean.addResult(attemptBean)}" styleClass="btn-submit"/>
-              <h:commandButton ajax="true" id="reset" value="Очистить"
-                               action="#{resultBean.clear()}" styleClass="btn-submit"/>
+              <p:commandButton id="submit" value="Отправить"
+                               action="#{resultBean.addResult(attemptBean)}" 
+                               styleClass="btn-submit"
+                               update=":table"
+                               process="@form"/>
+              <p:commandButton id="reset" value="Очистить"
+                               action="#{resultBean.clear()}" 
+                               styleClass="btn-submit"
+                               update=":table"
+                               process="@form"/>
             </h:form>
           </td>
         </tr>
@@ -87,9 +93,9 @@
       <!-- Results Table -->
       <div id="results">
         <h2><strong>~> Результаты<span class="cursor">_</span></strong></h2>
-        <p:dataTable id="table" value="#{attemptsList}" var="attempt" paginator="true"
+        <p:dataTable id="table" value="#{attemptsList.getAllResults()}" var="attempt" paginator="false"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     rows="10" lazy="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                     rows="10" lazy="false" paginatorPosition="bottom" paginatorAlwaysVisible="true"
                      style="width: 750px" styleClass="table">
           <p:column headerText="X">
             <h:outputText value="#{attempt.x}">

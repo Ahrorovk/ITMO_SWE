@@ -1,0 +1,110 @@
+<div class="login-container">
+  <div class="header fade-in">
+    <h1>Ахроров Кароматуллохон Фирдавсович</h1>
+    <h2>P3210, Вариант 89</h2>
+  </div>
+
+  <p-card class="login-card fade-in">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <h3>{{ isLoginMode ? 'Вход' : 'Регистрация' }}</h3>
+      </div>
+    </ng-template>
+
+    <form [formGroup]="isLoginMode ? loginForm : registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Логин</label>
+        <input
+          type="text"
+          id="username"
+          pInputText
+          formControlName="username"
+          [class.ng-invalid]="(isLoginMode ? loginForm : registerForm).get('username')?.invalid && (isLoginMode ? loginForm : registerForm).get('username')?.touched"
+        />
+        <small *ngIf="(isLoginMode ? loginForm : registerForm).get('username')?.invalid && (isLoginMode ? loginForm : registerForm).get('username')?.touched" class="p-error">
+          Логин обязателен
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <p-password
+          id="password"
+          formControlName="password"
+          [feedback]="!isLoginMode"
+          [toggleMask]="true"
+          styleClass="full-width"
+        ></p-password>
+        <small *ngIf="(isLoginMode ? loginForm : registerForm).get('password')?.invalid && (isLoginMode ? loginForm : registerForm).get('password')?.touched" class="p-error">
+          Пароль обязателен<ng-container *ngIf="!isLoginMode"> (минимум 3 символа)</ng-container>
+        </small>
+      </div>
+
+      <ng-container *ngIf="!isLoginMode">
+        <div class="form-group">
+          <label for="fullName">ФИО</label>
+          <input
+            type="text"
+            id="fullName"
+            pInputText
+            formControlName="fullName"
+            [class.ng-invalid]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+          />
+          <small *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="p-error">
+            ФИО обязательно
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="groupNumber">Номер группы</label>
+          <input
+            type="text"
+            id="groupNumber"
+            pInputText
+            formControlName="groupNumber"
+            [class.ng-invalid]="registerForm.get('groupNumber')?.invalid && registerForm.get('groupNumber')?.touched"
+          />
+          <small *ngIf="registerForm.get('groupNumber')?.invalid && registerForm.get('groupNumber')?.touched" class="p-error">
+            Номер группы обязателен
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="variant">Вариант</label>
+          <input
+            type="number"
+            id="variant"
+            pInputText
+            formControlName="variant"
+            [class.ng-invalid]="registerForm.get('variant')?.invalid && registerForm.get('variant')?.touched"
+          />
+          <small *ngIf="registerForm.get('variant')?.invalid && registerForm.get('variant')?.touched" class="p-error">
+            Вариант обязателен
+          </small>
+        </div>
+      </ng-container>
+
+      <p-message *ngIf="errorMessage" severity="error" [text]="errorMessage" styleClass="error-message"></p-message>
+
+      <div class="form-actions">
+        <p-button
+          type="submit"
+          label="{{ isLoginMode ? 'Войти' : 'Зарегистрироваться' }}"
+          [icon]="isLoginMode ? 'pi pi-sign-in' : 'pi pi-user-plus'"
+          [disabled]="(isLoginMode ? loginForm : registerForm).invalid"
+          styleClass="full-width"
+        ></p-button>
+        <p-button
+          type="button"
+          label="{{ isLoginMode ? 'Регистрация' : 'Вход' }}"
+          [icon]="isLoginMode ? 'pi pi-user-plus' : 'pi pi-sign-in'"
+          severity="secondary"
+          (onClick)="toggleMode()"
+          styleClass="full-width"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+
+

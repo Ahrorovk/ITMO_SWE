@@ -1,0 +1,195 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: float 20s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.5px;
+}
+
+.header h2 {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  font-weight: 400;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.login-card ::ng-deep .p-card-body {
+  padding: 36px 32px !important;
+}
+
+.login-card form {
+  padding: 0;
+  margin: 0;
+}
+
+.card-header {
+  text-align: center;
+  padding: 24px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  animation: slideIn 0.5s ease-out both;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+.form-group:nth-child(5) { animation-delay: 0.5s; }
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group ::ng-deep .p-password {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+  align-items: center;
+  width: 100%;
+}
+
+.form-actions ::ng-deep .p-button {
+  min-width: 200px;
+  width: 100%;
+  max-width: 300px;
+  padding: 16px 32px !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-actions ::ng-deep .p-button:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.form-actions ::ng-deep .p-button:active {
+  transform: translateY(-1px) !important;
+}
+
+.form-actions ::ng-deep .p-button .p-button-icon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.error-message {
+  margin-bottom: 20px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 681px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header h2 {
+    font-size: 1rem;
+  }
+
+  .login-card {
+    max-width: 100%;
+  }
+
+  .login-container {
+    padding: 15px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 682px) and (max-width: 1208px) {
+  .login-card {
+    max-width: 480px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1209px) {
+  .login-card {
+    max-width: 520px;
+  }
+
+  .header h1 {
+    font-size: 3rem;
+  }
+
+  .header h2 {
+    font-size: 1.4rem;
+  }
+}
+
+

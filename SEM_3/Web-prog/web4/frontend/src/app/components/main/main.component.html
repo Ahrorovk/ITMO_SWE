@@ -1,0 +1,133 @@
+<div class="main-container">
+  <header class="header fade-in">
+    <div class="header-content">
+      <div class="user-info">
+        <h1>{{ user?.fullName }}</h1>
+        <h2>{{ user?.groupNumber }}, Вариант {{ user?.variant }}</h2>
+      </div>
+      <p-button label="Выход" severity="danger" icon="pi pi-sign-out" (onClick)="logout()"></p-button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="content-wrapper">
+      <!-- Canvas and Form Section -->
+      <div class="canvas-form-section">
+        <p-card class="canvas-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">График области</div>
+          </ng-template>
+          <div class="canvas-container">
+            <canvas #canvas class="graph-canvas"></canvas>
+          </div>
+        </p-card>
+
+        <p-card class="form-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">Ввод координат</div>
+          </ng-template>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="x">X (-5 ... 5):</label>
+              <input
+                type="number"
+                id="x"
+                pInputText
+                formControlName="x"
+                step="0.01"
+                [class.ng-invalid]="form.get('x')?.invalid && form.get('x')?.touched"
+              />
+              <small *ngIf="form.get('x')?.invalid && form.get('x')?.touched" class="p-error">
+                X должен быть от -5 до 5
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="y">Y (-3 ... 3):</label>
+              <input
+                type="number"
+                id="y"
+                pInputText
+                formControlName="y"
+                step="0.01"
+                [class.ng-invalid]="form.get('y')?.invalid && form.get('y')?.touched"
+              />
+              <small *ngIf="form.get('y')?.invalid && form.get('y')?.touched" class="p-error">
+                Y должен быть от -3 до 3
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="r">R (-5 ... 5):</label>
+              <input
+                type="number"
+                id="r"
+                pInputText
+                formControlName="r"
+                step="0.01"
+                (input)="onRChange()"
+                [class.ng-invalid]="form.get('r')?.invalid && form.get('r')?.touched"
+              />
+              <small *ngIf="form.get('r')?.invalid && form.get('r')?.touched" class="p-error">
+                R должен быть от -5 до 5
+              </small>
+            </div>
+
+            <p-message *ngIf="errorMessage" severity="error" [text]="errorMessage" styleClass="error-message"></p-message>
+
+            <div class="form-actions">
+              <p-button
+                type="submit"
+                label="Отправить"
+                icon="pi pi-send"
+                [disabled]="form.invalid"
+                styleClass="full-width"
+              ></p-button>
+              <p-button
+                type="button"
+                label="Очистить"
+                icon="pi pi-trash"
+                severity="secondary"
+                (onClick)="clearResults()"
+                styleClass="full-width"
+              ></p-button>
+            </div>
+          </form>
+        </p-card>
+      </div>
+
+      <!-- Results Table Section -->
+      <p-card class="results-card">
+        <ng-template pTemplate="header">
+          <div class="card-header">Результаты проверки</div>
+        </ng-template>
+        <p-table [value]="results" [paginator]="true" [rows]="10" styleClass="p-datatable-striped">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>X</th>
+              <th>Y</th>
+              <th>R</th>
+              <th>Результат</th>
+              <th>Время</th>
+              <th>Время выполнения (мкс)</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-result>
+            <tr>
+              <td>{{ result.x | number:'1.2-2' }}</td>
+              <td>{{ result.y | number:'1.2-2' }}</td>
+              <td>{{ result.r | number:'1.2-2' }}</td>
+              <td [class.result-yes]="result.result" [class.result-no]="!result.result">
+                {{ result.result ? 'Попал' : 'Не попал' }}
+              </td>
+              <td>{{ formatDate(result.time) }}</td>
+              <td>{{ result.bench }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-card>
+    </div>
+  </main>
+</div>
+
+
