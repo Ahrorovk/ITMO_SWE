@@ -4,9 +4,9 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://helios.cs.ifmo.ru:5432/studs</property>
-        <property name="hibernate.connection.username">s476150</property>
-        <property name="hibernate.connection.password">bkh49qpBNClH4P2K</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://helios.cs.ifmo.ru:5432/postgre</property>
+        <property name="hibernate.connection.username">sxxxxxx</property>
+        <property name="hibernate.connection.password">password</property>
 
         <!-- JDBC connection pool settings -->
         <property name="hibernate.c3p0.min_size">5</property>
