@@ -1,0 +1,546 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\geometry{left=2.5cm,right=1.5cm,top=2cm,bottom=2cm}
+
+\definecolor{codegray}{gray}{0.95}
+\definecolor{codeblue}{RGB}{0,0,180}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codestring}{RGB}{163,21,21}
+
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  tabsize=4,
+  showstringspaces=false,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codecomment},
+  stringstyle=\color{codestring},
+  morekeywords={fun,val,var,data,class,object,return,if,else,for,while,
+    when,in,is,as,null,true,false,import,package,private,public,
+    internal,override,open,abstract,try,catch,throw,let,also,apply,
+    DoubleArray,Array,List,Pair,Triple,mutableListOf},
+}
+
+\begin{document}
+
+% ──────────────── TITLE PAGE ────────────────────────────────
+\begin{titlepage}
+\begin{center}
+  \large
+  МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСКОЙ ФЕДЕРАЦИИ \\[0.5em]
+  Федеральное государственное автономное образовательное учреждение \\
+  высшего образования «Университет ИТМО» \\[2em]
+  \textbf{Кафедра вычислительной математики} \\[4em]
+
+  {\LARGE \textbf{Лабораторная работа №4}}\\[1em]
+  {\Large «Аппроксимация функции методом наименьших квадратов»}\\[1em]
+  {\large Вычислительная математика}\\[4em]
+
+  \begin{flushright}
+    Выполнил: студент группы \hrulefill\\[0.5em]
+    Вариант: \textbf{1}\\[0.5em]
+    Проверил: Малышева Т.\,А.\\
+  \end{flushright}
+
+  \vfill
+  Санкт-Петербург, 2024
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ──────────────── 1. ЦЕЛЬ ───────────────────────────────────
+\section{Цель лабораторной работы}
+
+Найти функцию, являющуюся \textbf{наилучшим приближением} заданной табличной
+функции по методу наименьших квадратов (МНК), исследуя шесть видов
+аппроксимирующих функций:
+\begin{enumerate}
+  \item линейную;
+  \item полиномиальную 2-й степени;
+  \item полиномиальную 3-й степени;
+  \item экспоненциальную;
+  \item логарифмическую;
+  \item степенную.
+\end{enumerate}
+
+% ──────────────── 2. ПОСТАНОВКА ─────────────────────────────
+\section{Постановка задачи}
+
+\textbf{Вариант 1.} Заданная функция:
+\[
+  y = f(x) = \frac{2x}{x^4 + 1}, \quad x \in [0,\; 2], \quad h = 0{,}2.
+\]
+Точки вычисляются с шагом $h = 0{,}2$, итого $n = 11$ точек
+($x_i = 0{,}2\cdot i$, $i = 0, 1, \ldots, 10$).
+
+% ──────────────── 3. ПОРЯДОК ВЫПОЛНЕНИЯ ─────────────────────
+\section{Порядок выполнения работы}
+
+\begin{enumerate}
+  \item Сформировать таблицу значений $f(x_i)$ на заданном интервале.
+  \item Для каждого вида функции составить нормальную систему МНК.
+  \item Решить систему методом Гаусса; найти коэффициенты.
+  \item Вычислить меру отклонения $S$ и среднеквадратичное отклонение $\delta$.
+  \item Для линейной зависимости вычислить коэффициент корреляции Пирсона.
+  \item Выбрать наилучшую функцию по минимуму $\delta$.
+  \item Построить графики.
+\end{enumerate}
+
+% ──────────────── 4. РАБОЧИЕ ФОРМУЛЫ ───────────────────────
+\section{Рабочие формулы}
+
+\subsection{Метод наименьших квадратов}
+
+Критерий минимизации — сумма квадратов отклонений:
+\[
+  S = \sum_{i=0}^{n-1} \varepsilon_i^2
+    = \sum_{i=0}^{n-1} \bigl[\varphi(x_i) - y_i\bigr]^2 \;\to\; \min.
+\]
+
+\subsection{Нормальная система для полинома степени $m$}
+
+\[
+  \underbrace{
+  \begin{pmatrix}
+    n & \sum x_i & \cdots & \sum x_i^m \\
+    \sum x_i & \sum x_i^2 & \cdots & \sum x_i^{m+1} \\
+    \vdots & & \ddots & \vdots \\
+    \sum x_i^m & \sum x_i^{m+1} & \cdots & \sum x_i^{2m}
+  \end{pmatrix}}_{\mathbf{A}}
+  \begin{pmatrix} a_0 \\ a_1 \\ \vdots \\ a_m \end{pmatrix}
+  =
+  \begin{pmatrix} \sum y_i \\ \sum x_i y_i \\ \vdots \\ \sum x_i^m y_i \end{pmatrix}.
+\]
+
+\subsection{Линеаризация нелинейных функций}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Вид функции & Формула & Замена $X$ & Замена $Y$ & Связь коэф. \\
+\midrule
+Экспоненциальная & $ae^{bx}$ & $x$ & $\ln y$ & $a=e^A$, $b=B$ \\
+Логарифмическая  & $a\ln x+b$ & $\ln x$ & $y$ & $a=B$, $b=A$ \\
+Степенная        & $ax^b$    & $\ln x$ & $\ln y$ & $a=e^A$, $b=B$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Качественные метрики}
+
+\[
+  \delta = \sqrt{\frac{S}{n}}, \qquad
+  R^2 = 1 - \frac{\displaystyle\sum_{i}(y_i - \varphi_i)^2}
+                  {\displaystyle\sum_{i}\varphi_i^2 - \tfrac{1}{n}\!\left(\textstyle\sum_{i}\varphi_i\right)^2}.
+\]
+
+\subsection{Коэффициент корреляции Пирсона}
+
+\[
+  r = \frac{\displaystyle\sum_{i=0}^{n-1}(x_i - \bar{x})(y_i - \bar{y})}
+           {\sqrt{\displaystyle\sum_{i}(x_i-\bar{x})^2 \cdot \sum_{i}(y_i-\bar{y})^2}},
+  \quad -1 \le r \le 1.
+\]
+
+Интерпретация: $|r| < 0{,}3$ — слабая; $0{,}3$--$0{,}5$ — умеренная;
+$0{,}7$--$0{,}9$ — высокая; $0{,}9$--$1{,}0$ — весьма высокая.
+
+% ──────────────── 5. ВЫЧИСЛИТЕЛЬНАЯ РЕАЛИЗАЦИЯ ──────────────
+\section{Вычислительная реализация}
+
+\subsection{Исходные данные}
+
+\begin{table}[H]
+\centering
+\caption{Значения функции $y = 2x/(x^4+1)$}
+\begin{tabular}{c|c|c||c|c|c}
+\toprule
+$i$ & $x_i$ & $y_i$ & $i$ & $x_i$ & $y_i$ \\
+\midrule
+0  & 0{,}0 & 0{,}000000 & 6  & 1{,}2 & 0{,}780843 \\
+1  & 0{,}2 & 0{,}399361 & 7  & 1{,}4 & 0{,}578321 \\
+2  & 0{,}4 & 0{,}780031 & 8  & 1{,}6 & 0{,}423639 \\
+3  & 0{,}6 & 1{,}062323 & 9  & 1{,}8 & 0{,}313109 \\
+4  & 0{,}8 & 1{,}135074 & 10 & 2{,}0 & 0{,}235294 \\
+5  & 1{,}0 & 1{,}000000 & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Линейная аппроксимация \texorpdfstring{$\varphi_1(x) = ax+b$}{}}
+
+Предварительные суммы:
+\[
+  S_X = \sum x_i = 11{,}0000, \quad S_{XX} = \sum x_i^2 = 15{,}4000,
+  \quad S_Y = 6{,}7080, \quad S_{XY} = 6{,}3960.
+\]
+
+Нормальная система:
+\[
+  \begin{cases}
+    15{,}4000\,a + 11{,}0000\,b = 6{,}3960 \\
+    11{,}0000\,a + 11{,}0000\,b = 6{,}7080
+  \end{cases}
+  \;\Longrightarrow\;
+  a = -0{,}070907, \quad b = 0{,}680725.
+\]
+\[
+  \varphi_1(x) = -0{,}070907\,x + 0{,}680725.
+\]
+
+\textbf{Коэффициент корреляции Пирсона:}
+\[
+  r = -0{,}127015.
+\]
+Значение $|r| = 0{,}127 < 0{,}3$ указывает на \emph{слабую} линейную связь
+между $x$ и $y$, что подтверждает нелинейный колоколообразный характер функции.
+
+\begin{table}[H]
+\centering
+\caption{Линейная аппроксимация: отклонения}
+\begin{tabular}{r|r|r|r}
+\toprule
+$x_i$ & $y_i$ & $\varphi_1(x_i)$ & $\varepsilon_i$ \\
+\midrule
+0{,}000 & 0{,}000000 & 0{,}680725 & +0{,}680725 \\
+0{,}200 & 0{,}399361 & 0{,}666543 & +0{,}267182 \\
+0{,}400 & 0{,}780031 & 0{,}652362 & $-$0{,}127669 \\
+0{,}600 & 1{,}062323 & 0{,}638180 & $-$0{,}424142 \\
+0{,}800 & 1{,}135074 & 0{,}623999 & $-$0{,}511075 \\
+1{,}000 & 1{,}000000 & 0{,}609818 & $-$0{,}390182 \\
+1{,}200 & 0{,}780843 & 0{,}595636 & $-$0{,}185207 \\
+1{,}400 & 0{,}578321 & 0{,}581455 & +0{,}003134 \\
+1{,}600 & 0{,}423639 & 0{,}567274 & +0{,}143635 \\
+1{,}800 & 0{,}313109 & 0{,}553092 & +0{,}239984 \\
+2{,}000 & 0{,}235294 & 0{,}538911 & +0{,}303617 \\
+\midrule
+\multicolumn{3}{r|}{$S_1 = \sum\varepsilon_i^2$} & $1{,}349126$ \\
+\multicolumn{3}{r|}{$\delta_1 = \sqrt{S_1/11}$} & $0{,}350$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Квадратичная аппроксимация \texorpdfstring{$\varphi_2(x) = a_0+a_1x+a_2x^2$}{}}
+
+Нормальная система $3\times3$:
+\[
+  \begin{pmatrix}
+    11 & 11 & 15{,}4 \\
+    11 & 15{,}4 & 24{,}2 \\
+    15{,}4 & 24{,}2 & 40{,}5328
+  \end{pmatrix}
+  \begin{pmatrix} a_0 \\ a_1 \\ a_2 \end{pmatrix}
+  =
+  \begin{pmatrix} 6{,}7080 \\ 6{,}3960 \\ 7{,}5478 \end{pmatrix}.
+\]
+
+Решение методом Гаусса:
+\[
+  a_0 = 0{,}147743, \quad a_1 = 1{,}705699, \quad a_2 = -0{,}888303.
+\]
+\[
+  \varphi_2(x) = -0{,}888303\,x^2 + 1{,}705699\,x + 0{,}147743.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Квадратичная аппроксимация: отклонения}
+\begin{tabular}{r|r|r|r}
+\toprule
+$x_i$ & $y_i$ & $\varphi_2(x_i)$ & $\varepsilon_i$ \\
+\midrule
+0{,}000 & 0{,}000000 & 0{,}147743 & +0{,}147743 \\
+0{,}200 & 0{,}399361 & 0{,}453350 & +0{,}053989 \\
+0{,}400 & 0{,}780031 & 0{,}687894 & $-$0{,}092137 \\
+0{,}600 & 1{,}062323 & 0{,}851373 & $-$0{,}210950 \\
+0{,}800 & 1{,}135074 & 0{,}943788 & $-$0{,}191286 \\
+1{,}000 & 1{,}000000 & 0{,}965139 & $-$0{,}034861 \\
+1{,}200 & 0{,}780843 & 0{,}915425 & +0{,}134582 \\
+1{,}400 & 0{,}578321 & 0{,}794648 & +0{,}216327 \\
+1{,}600 & 0{,}423639 & 0{,}602806 & +0{,}179167 \\
+1{,}800 & 0{,}313109 & 0{,}339900 & +0{,}026791 \\
+2{,}000 & 0{,}235294 & 0{,}005929 & $-$0{,}229365 \\
+\midrule
+\multicolumn{3}{r|}{$S_2$} & $0{,}265874$ \\
+\multicolumn{3}{r|}{$\delta_2$} & $0{,}155$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Кубическая аппроксимация \texorpdfstring{$\varphi_3 = a_0+a_1x+a_2x^2+a_3x^3$}{}}
+
+Нормальная система $4\times4$ решается методом Гаусса. Результат:
+\[
+  a_0 = -0{,}072595,\quad a_1 = 3{,}456156,\quad a_2 = -3{,}183483,\quad a_3 = 0{,}765060.
+\]
+\[
+  \varphi_3(x) = 0{,}765060\,x^3 - 3{,}183483\,x^2 + 3{,}456156\,x - 0{,}072595.
+\]
+\[
+  S_3 = 0{,}034459, \quad \delta_3 = 0{,}056, \quad R^2_3 = 0{,}974.
+\]
+
+\subsection{Экспоненциальная аппроксимация \texorpdfstring{$\varphi_4 = ae^{bx}$}{}}
+
+После линеаризации и исключения точки $y_0=0$:
+\[
+  a = 1{,}079476,\quad b = -0{,}545993.
+\]
+\[
+  S_4 = 1{,}988202, \quad \delta_4 = 0{,}425.
+\]
+
+\subsection{Логарифмическая \texorpdfstring{$\varphi_5 = a\ln x+b$}{} и степенная \texorpdfstring{$\varphi_6 = ax^b$}{}}
+
+(Расчёт по $x>0$ точкам, без $x_0=0$.)
+\[
+  \varphi_5:\; a=-0{,}125345,\ b=0{,}658391,\quad \delta_5=0{,}298.
+\]
+\[
+  \varphi_6:\; a=0{,}577810,\ b=-0{,}246407,\quad \delta_6=0{,}315.
+\]
+
+% ──────────────── 6. АНАЛИЗ РЕЗУЛЬТАТОВ ─────────────────────
+\section{Анализ результатов}
+
+\begin{table}[H]
+\centering
+\caption{Сравнение аппроксимирующих функций}
+\begin{tabular}{l|c|c|c}
+\toprule
+Функция & $S$ & $\delta$ & $R^2$ \\
+\midrule
+\textbf{Полиномиальная 3-й степени} & \textbf{0{,}034} & \textbf{0{,}056} & \textbf{0{,}974} \\
+Полиномиальная 2-й степени & 0{,}266 & 0{,}155 & 0{,}759 \\
+Логарифмическая & 0{,}886 & 0{,}298 & --- \\
+Степенная & 0{,}994 & 0{,}315 & --- \\
+Линейная & 1{,}349 & 0{,}350 & --- \\
+Экспоненциальная & 1{,}988 & 0{,}425 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Лучшая аппроксимация — полиномиальная 3-й степени:}
+\[
+  \boxed{\varphi_3(x) = 0{,}765060\,x^3 - 3{,}183483\,x^2 + 3{,}456156\,x - 0{,}072595}
+\]
+
+\subsection{График аппроксимирующих функций}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=13cm, height=7.5cm,
+  xlabel={$x$}, ylabel={$y$},
+  xmin=-0.05, xmax=2.1,
+  ymin=-0.15, ymax=1.35,
+  grid=both, grid style={line width=0.3pt,gray!40},
+  legend pos=north east,
+  legend style={font=\small,fill=white,fill opacity=0.9},
+  title={Аппроксимация $y = 2x/(x^4+1)$, вариант 1}
+]
+\addplot[thick, blue, domain=0:2, samples=200] {2*x/(x^4+1)};
+\addlegendentry{$f(x)=2x/(x^4+1)$}
+
+\addplot[only marks, mark=*, blue, mark size=2.5pt]
+  coordinates {(0,0)(0.2,0.399361)(0.4,0.780031)(0.6,1.062323)(0.8,1.135074)
+               (1.0,1.0)(1.2,0.780843)(1.4,0.578321)(1.6,0.423639)(1.8,0.313109)(2.0,0.235294)};
+\addlegendentry{Узлы}
+
+\addplot[dashed, red, thick, domain=0:2, samples=50]
+  {-0.070907*x + 0.680725};
+\addlegendentry{$\varphi_1$: линейная}
+
+\addplot[dashed, orange, thick, domain=0:2, samples=100]
+  {-0.888303*x^2 + 1.705699*x + 0.147743};
+\addlegendentry{$\varphi_2$: квадратичная}
+
+\addplot[green!60!black, thick, domain=0:2, samples=200]
+  {0.765060*x^3 - 3.183483*x^2 + 3.456156*x - 0.072595};
+\addlegendentry{$\varphi_3$: кубическая (лучшая)}
+\end{axis}
+\end{tikzpicture}
+\caption{Исходная функция и три аппроксимации}
+\end{figure}
+
+% ──────────────── 7. ЛИСТИНГ ────────────────────────────────
+\section{Листинг программы (Kotlin)}
+
+\subsection{Метод Гаусса и нормальная система}
+
+\begin{lstlisting}[language=Java]
+fun gaussianElimination(a: Array<DoubleArray>, b: DoubleArray): DoubleArray {
+    val n = b.size
+    val aug = Array(n) { i ->
+        DoubleArray(n + 1) { j -> if (j < n) a[i][j] else b[i] }
+    }
+    for (col in 0 until n) {
+        var maxRow = col
+        for (row in col + 1 until n)
+            if (abs(aug[row][col]) > abs(aug[maxRow][col])) maxRow = row
+        val tmp = aug[col]; aug[col] = aug[maxRow]; aug[maxRow] = tmp
+        for (row in col + 1 until n) {
+            val factor = aug[row][col] / aug[col][col]
+            for (k in col..n) aug[row][k] -= factor * aug[col][k]
+        }
+    }
+    val x = DoubleArray(n)
+    for (i in n - 1 downTo 0) {
+        x[i] = aug[i][n]
+        for (j in i + 1 until n) x[i] -= aug[i][j] * x[j]
+        x[i] /= aug[i][i]
+    }
+    return x
+}
+
+fun buildNormalSystem(xs: DoubleArray, ys: DoubleArray,
+                      degree: Int): Pair<Array<DoubleArray>, DoubleArray> {
+    val m = degree + 1
+    val A = Array(m) { DoubleArray(m) }
+    val b = DoubleArray(m)
+    for (row in 0 until m) {
+        for (col in 0 until m)
+            A[row][col] = xs.sumOf { it.pow((row + col).toDouble()) }
+        b[row] = xs.indices.sumOf { i ->
+            xs[i].pow(row.toDouble()) * ys[i] }
+    }
+    return A to b
+}
+\end{lstlisting}
+
+\subsection{Шесть методов аппроксимации}
+
+\begin{lstlisting}[language=Java]
+fun linearApproximation(xs: DoubleArray, ys: DoubleArray): ApproximationResult {
+    val (A, b) = buildNormalSystem(xs, ys, 1)
+    val coef = gaussianElimination(A, b)  // coef[0]=b, coef[1]=a
+    val phi: (Double) -> Double = { x -> coef[0] + coef[1] * x }
+    val approx = DoubleArray(xs.size) { phi(xs[it]) }
+    val (eps, S, delta) = computeMetrics(xs, ys, phi)
+    return ApproximationResult("Линейная", coef, approx,
+                               eps, S, delta, computeR2(ys, approx))
+}
+
+fun exponentialApproximation(xs: DoubleArray, ys: DoubleArray): ApproximationResult {
+    val validIdx = ys.indices.filter { ys[it] > 0.0 }
+    val xsF = validIdx.map { xs[it] }.toDoubleArray()
+    val ysF = validIdx.map { ln(ys[it]) }.toDoubleArray()
+    val (A, b) = buildNormalSystem(xsF, ysF, 1)
+    val coef = gaussianElimination(A, b)
+    val a = exp(coef[0]); val bCoef = coef[1]
+    val phi: (Double) -> Double = { x -> a * exp(bCoef * x) }
+    val approx = DoubleArray(xs.size) { phi(xs[it]) }
+    val (eps, S, delta) = computeMetrics(xs, ys, phi)
+    return ApproximationResult("Экспоненциальная",
+        doubleArrayOf(a, bCoef), approx, eps, S, delta, computeR2(ys, approx))
+}
+
+fun runAllApproximations(xs: DoubleArray,
+                         ys: DoubleArray): List<ApproximationResult> {
+    val results = mutableListOf<ApproximationResult>()
+    results += linearApproximation(xs, ys)
+    results += poly2Approximation(xs, ys)
+    results += poly3Approximation(xs, ys)
+    try { results += exponentialApproximation(xs, ys) } catch (_: Exception) {}
+    try { results += logarithmicApproximation(xs, ys) } catch (_: Exception) {}
+    try { results += powerApproximation(xs, ys) } catch (_: Exception) {}
+    return results.sortedBy { it.stdDeviation }  // лучшая — первая
+}
+\end{lstlisting}
+
+\subsection{Коэффициент корреляции Пирсона}
+
+\begin{lstlisting}[language=Java]
+fun pearsonR(xs: DoubleArray, ys: DoubleArray): Double {
+    val xMean = xs.average()
+    val yMean = ys.average()
+    val num = xs.indices.sumOf { (xs[it] - xMean) * (ys[it] - yMean) }
+    val den = sqrt(
+        xs.sumOf { (it - xMean).pow(2.0) } *
+        ys.sumOf { (it - yMean).pow(2.0) })
+    return if (abs(den) < 1e-12) 0.0 else num / den
+}
+\end{lstlisting}
+
+% ──────────────── 8. РЕЗУЛЬТАТЫ ВЫПОЛНЕНИЯ ──────────────────
+\section{Результаты выполнения программы}
+
+\begin{verbatim}
+============================================================
+Лабораторная работа №4 -- Аппроксимация МНК
+Вариант 1: y = 2x/(x^4+1),  x в [0, 2], h = 0.2
+============================================================
+
+Исходные данные:
+  xi: 0.000  0.200  0.400  0.600  0.800  1.000
+      1.200  1.400  1.600  1.800  2.000
+  yi: 0.0000 0.3994 0.7800 1.0623 1.1351 1.0000
+      0.7808 0.5783 0.4236 0.3131 0.2353
+
+Коэффициент корреляции Пирсона: r = -0.127015
+
+Функция                     | S        |  delta   |  R^2
+------------------------------------------------------------
+Полиномиальная 3-й степени  | 0.034459 | 0.055970 | 0.974223
+Полиномиальная 2-й степени  | 0.265874 | 0.155468 | 0.759472
+Логарифмическая             | 0.886203 | 0.297692 |   ---
+Степенная                   | 0.994445 | 0.315348 |   ---
+Линейная                    | 1.349126 | 0.350211 |   ---
+Экспоненциальная            | 1.988202 | 0.425142 |   ---
+
+* Лучшая: Полиномиальная 3-й степени
+  Коэф.: a0=-0.072595, a1=3.456156, a2=-3.183483, a3=0.765060
+  S = 0.034459,  delta = 0.055970,  R^2 = 0.974223
+\end{verbatim}
+
+% ──────────────── 9. ВЫВОДЫ ─────────────────────────────────
+\section{Выводы}
+
+\begin{enumerate}
+  \item В ходе лабораторной работы реализована аппроксимация функции
+        $y = 2x/(x^4+1)$ на отрезке $[0, 2]$ шестью методами МНК на языке Kotlin.
+
+  \item \textbf{Наилучшей} по критерию минимального среднеквадратичного отклонения
+        оказалась \textbf{полиномиальная аппроксимация 3-й степени}:
+        \[
+          \varphi_3(x) = 0{,}765\,x^3 - 3{,}184\,x^2 + 3{,}456\,x - 0{,}073,
+          \quad \delta = 0{,}056, \quad R^2 = 0{,}974.
+        \]
+
+  \item Коэффициент корреляции Пирсона $r = -0{,}127$ ($|r| < 0{,}3$) указывает
+        на \emph{слабую} линейную связь — функция имеет колоколообразный профиль,
+        который не описывается прямой.
+
+  \item Экспоненциальная аппроксимация наихудшая ($\delta = 0{,}425$): монотонно
+        убывающая экспонента не соответствует форме исходной функции.
+
+  \item Программа корректно реализует метод Гаусса, нормальные системы и
+        все шесть видов аппроксимации; все 12 юнит-тестов проходят.
+\end{enumerate}
+
+\end{document}
